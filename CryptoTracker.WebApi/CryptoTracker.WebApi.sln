@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTracker.WebApi", "CryptoTracker.WebApi\CryptoTracker.WebApi.csproj", "{35D80972-1B36-495D-8E5C-5DDB554E8A34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoTracker.WebApi", "CryptoTracker.WebApi\CryptoTracker.WebApi.csproj", "{35D80972-1B36-495D-8E5C-5DDB554E8A34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTracker.Core", "CryptoTracker.Core\CryptoTracker.Core.csproj", "{3E097F3F-12B2-4AF0-8850-B097674C3972}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoTracker.Core", "CryptoTracker.Core\CryptoTracker.Core.csproj", "{3E097F3F-12B2-4AF0-8850-B097674C3972}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTracker.DataAccess", "CryptoTracker.DataAccess\CryptoTracker.DataAccess.csproj", "{67A3F090-2883-4A76-978C-49A23CF3E00D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoTracker.DataAccess", "CryptoTracker.DataAccess\CryptoTracker.DataAccess.csproj", "{67A3F090-2883-4A76-978C-49A23CF3E00D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTracker.Common", "CryptoTracker.Common\CryptoTracker.Common.csproj", "{C7B9CC45-2D14-48B2-AF57-1A3A38116BB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoTracker.Common", "CryptoTracker.Common\CryptoTracker.Common.csproj", "{C7B9CC45-2D14-48B2-AF57-1A3A38116BB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTracker.Exceptions", "CryptoTracker.Exceptions\CryptoTracker.Exceptions.csproj", "{19A336AF-5BA4-427E-B206-035555DA09E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoTracker.Exceptions", "CryptoTracker.Exceptions\CryptoTracker.Exceptions.csproj", "{19A336AF-5BA4-427E-B206-035555DA09E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
