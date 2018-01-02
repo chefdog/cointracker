@@ -5,9 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DataTransferModels\" />
-    <Folder Include="Services\CoinBusinessService\" />
     <Folder Include="Services\PortfolioBusinessService\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CryptoTracker.Common\CryptoTracker.Common.csproj" />
+    <ProjectReference Include="..\CryptoTracker.DataAccess\CryptoTracker.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

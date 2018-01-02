@@ -58,13 +58,13 @@ namespace CryptoTracker.DataAccess.Repositories
                     var stringData = response.Content.ReadAsStringAsync().Result;
                     result = JsonConvert.DeserializeObject<IQueryable<ExchangeModel>>(stringData);
                 }
-                return result;
+                return result.Cast<IModel>();
             }
             catch (Exception ex)
             {
                 ExceptionHandler.HandleRepositoryException(ex);
             }
-            return result;
+            return null;
         }
 
         public Task<IModel> UpdateAsync(IModel changes)
