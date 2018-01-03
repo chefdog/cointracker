@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace CryptoTracker.DataAccess.Models
+namespace CryptoTracker.Core.Models
 {
     public class PortfolioModel : BaseModel
     {

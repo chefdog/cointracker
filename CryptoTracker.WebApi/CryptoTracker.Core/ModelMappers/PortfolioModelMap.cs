@@ -1,11 +1,8 @@
-﻿using CryptoTracker.Common.Interfaces;
-using CryptoTracker.DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using CryptoTracker.Common.Interfaces;
+using CryptoTracker.Core.Models;
 
-namespace CryptoTracker.DataAccess.ModelMappers
+namespace CryptoTracker.Core.ModelMappers
 {
     public class PortfolioModelMap : IEntityMap
     {

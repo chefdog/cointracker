@@ -14,4 +14,8 @@
     <ProjectReference Include="..\CryptoTracker.Exceptions\CryptoTracker.Exceptions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>

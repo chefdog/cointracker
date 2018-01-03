@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\PortfolioBusinessService\" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CryptoTracker.Common\CryptoTracker.Common.csproj" />
-    <ProjectReference Include="..\CryptoTracker.DataAccess\CryptoTracker.DataAccess.csproj" />
+    <ProjectReference Include="..\CryptoTracker.Exceptions\CryptoTracker.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

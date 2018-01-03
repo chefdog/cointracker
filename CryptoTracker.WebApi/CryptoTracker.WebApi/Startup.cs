@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CryptoTracker.Common;
-using CryptoTracker.Common.EntityLayer;
+﻿using CryptoTracker.Common;
 using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.DataTransferModels;
-using CryptoTracker.Core.Services.CoinBusinessService;
+using CryptoTracker.Core.ModelMappers;
+using CryptoTracker.Core.Services.PortfolioService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace CryptoTracker.WebApi
 {

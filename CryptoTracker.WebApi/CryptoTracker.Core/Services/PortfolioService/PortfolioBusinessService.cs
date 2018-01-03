@@ -1,25 +1,40 @@
-﻿using CryptoTracker.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CryptoTracker.Common;
 using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.DataTransferModels;
-using CryptoTracker.DataAccess.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using CryptoTracker.DataAccess.Enums;
 
-namespace CryptoTracker.Core.Services.CoinBusinessService
+
+namespace CryptoTracker.Core.Services.PortfolioService
 {
     public class PortfolioBusinessService : IBusinessService<PortfolioDataTransferModel>, IDisposable
     {
         private IRepository _repos;
-
-        public PortfolioBusinessService(AppSettings appSettings) {
-            _repos = new PortfolioRepository();
+        private IRepository _coinRepos;
+        private IRepository _historyRepos;
+        private IRepository _exchangeRepos;
+        public PortfolioBusinessService(AppSettings appSettings, CTDbContext dbContext) {
+            _repos = new PortfolioRepository(dbContext);
+            
         }
 
-        public Task<PortfolioDataTransferModel> Create(PortfolioDataTransferModel dto)
+        public async Task<PortfolioDataTransferModel> Create(PortfolioDataTransferModel dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //check lastupdate
+                var lastest = _historyRepos.GetMany(10, 0, HistoryLogEnum.REMOTE_API.ToString());
+
+                //check latest update from remote api
+                var exchangeModels = _exchangeRepos.GetMany(1000, 0, string.Empty);
+
+            }
+            catch (Exception ex) {
+
+            }
+            return null;
         }
 
         public Task<PortfolioDataTransferModel> Find(PortfolioDataTransferModel dto)

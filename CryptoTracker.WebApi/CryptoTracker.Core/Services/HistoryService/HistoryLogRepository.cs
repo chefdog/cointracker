@@ -1,18 +1,17 @@
 ﻿using CryptoTracker.Common;
 using CryptoTracker.Common.Interfaces;
-using CryptoTracker.DataAccess.Models;
+using CryptoTracker.Core.Models;
 using CryptoTracker.Exceptions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CryptoTracker.DataAccess.Repositories
+namespace CryptoTracker.Core.Services.HistoryService
 {
-    class PortfolioItemRepository : IRepository
+    internal class HistoryLogRepository : IRepository
     {
         private CTDbContext _dbContext;
-        public PortfolioItemRepository(CTDbContext dbContext)
-        {
+        public HistoryLogRepository(CTDbContext dbContext) {
             _dbContext = dbContext;
         }
 
@@ -20,11 +19,11 @@ namespace CryptoTracker.DataAccess.Repositories
         {
             try
             {
-                PortfolioItemModel model = entity as PortfolioItemModel;
+                HistoryLogModel model = entity as HistoryLogModel;
                 model.Created = DateTime.Now;
                 model.LastModified = DateTime.Now;
                 model.RowGuid = Guid.NewGuid();
-                await _dbContext.Set<PortfolioItemModel>().AddAsync(model);
+                await _dbContext.Set<HistoryLogModel>().AddAsync(model);
                 await _dbContext.SaveChangesAsync();
                 return model as IModel;
             }
@@ -39,8 +38,8 @@ namespace CryptoTracker.DataAccess.Repositories
         {
             try
             {
-                PortfolioItemModel model = entity as PortfolioItemModel;
-                _dbContext.Set<PortfolioItemModel>().Remove(model);
+                HistoryLogModel model = entity as HistoryLogModel;
+                _dbContext.Set<HistoryLogModel>().Remove(model);
                 await _dbContext.SaveChangesAsync();
                 return model as IModel;
             }
@@ -55,15 +54,15 @@ namespace CryptoTracker.DataAccess.Repositories
         {
             try
             {
-                PortfolioItemModel model = entity as PortfolioItemModel;
-                PortfolioItemModel result = null;
+                HistoryLogModel model = entity as HistoryLogModel;
+                HistoryLogModel result = null;
                 if (model.Id > 0)
                 {
-                    result = await _dbContext.Set<PortfolioItemModel>().FindAsync(model.Id);
+                    result = await _dbContext.Set<HistoryLogModel>().FindAsync(model.Id);
                 }
                 if (!String.IsNullOrEmpty(model.Title) && result == null)
                 {
-                    result = await _dbContext.Set<PortfolioItemModel>().FindAsync(model.Title);
+                    result = await _dbContext.Set<HistoryLogModel>().FindAsync(model.Title);
                 }
                 return result as IModel;
             }
@@ -78,7 +77,7 @@ namespace CryptoTracker.DataAccess.Repositories
         {
             try
             {
-                var result = _dbContext.Set<PortfolioItemModel>().Take(pageSize);
+                var result = _dbContext.Set<HistoryLogModel>().Take(pageSize);
                 return result.Cast<IModel>();
             }
             catch (Exception ex)
@@ -88,21 +87,9 @@ namespace CryptoTracker.DataAccess.Repositories
             return null;
         }
 
-        public async Task<IModel> UpdateAsync(IModel entity)
+        public Task<IModel> UpdateAsync(IModel changes)
         {
-            try
-            {
-                PortfolioItemModel model = entity as PortfolioItemModel;
-                model.LastModified = DateTime.Now;
-                _dbContext.Set<PortfolioItemModel>().Update(model);
-                await _dbContext.SaveChangesAsync();
-                return model as IModel;
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.HandleRepositoryException(ex);
-            }
-            return entity;
+            throw new NotImplementedException();
         }
 
         #region IDisposable Support
@@ -125,7 +112,7 @@ namespace CryptoTracker.DataAccess.Repositories
         }
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~PortfolioRepository() {
+        // ~HistoryLogRepository() {
         //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
         //   Dispose(false);
         // }

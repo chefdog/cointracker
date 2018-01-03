@@ -1,12 +1,12 @@
 ﻿using CryptoTracker.Common;
 using CryptoTracker.Common.Interfaces;
-using CryptoTracker.DataAccess.Models;
+using CryptoTracker.Core.Models;
 using CryptoTracker.Exceptions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CryptoTracker.DataAccess.Repositories
+namespace CryptoTracker.Core.Services.PortfolioService
 {
     public class PortfolioRepository : IRepository
     {

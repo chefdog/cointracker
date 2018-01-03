@@ -1,9 +1,8 @@
 ﻿using CryptoTracker.Common.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace CryptoTracker.Common.EntityLayer
+
+namespace CryptoTracker.Core.ModelMappers
 {
     public class CryptoTrackerEntityMapper : EntityMapper
     {

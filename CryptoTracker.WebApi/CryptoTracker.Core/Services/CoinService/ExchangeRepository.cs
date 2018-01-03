@@ -1,16 +1,15 @@
-﻿using CryptoTracker.Common.Interfaces;
-using CryptoTracker.DataAccess.Models;
-using CryptoTracker.Exceptions;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
+using CryptoTracker.Common.Interfaces;
+using CryptoTracker.Core.Models;
+using CryptoTracker.Exceptions;
+using Newtonsoft.Json;
 
-namespace CryptoTracker.DataAccess.Repositories
+namespace CryptoTracker.Core.Services.CoinService
 {
     public class ExchangeRepository : IRepository
     {

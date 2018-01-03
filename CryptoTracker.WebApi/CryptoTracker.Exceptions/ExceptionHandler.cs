@@ -12,5 +12,11 @@ namespace CryptoTracker.Exceptions
         {
             throw ex;
         }
+
+        public static void ProcessRepositoryException(RepositoryException rex)
+        {
+            //normally start logging and bubble up 
+            throw rex;
+        }
     }
 }

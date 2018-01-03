@@ -1,8 +1,8 @@
 ﻿using CryptoTracker.Common.Interfaces;
-using CryptoTracker.DataAccess.Models;
+using CryptoTracker.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CryptoTracker.DataAccess.ModelMappers
+namespace CryptoTracker.Core.ModelMappers
 {
     public class CoinModelMap : IEntityMap
     {
