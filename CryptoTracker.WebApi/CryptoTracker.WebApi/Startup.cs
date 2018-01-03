@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CryptoTracker.Common;
+using CryptoTracker.Common.EntityLayer;
+using CryptoTracker.Common.Interfaces;
+using CryptoTracker.Core.DataTransferModels;
+using CryptoTracker.Core.Services.CoinBusinessService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +29,17 @@ namespace CryptoTracker.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddEntityFrameworkSqlServer().AddDbContext<CTDbContext>();
+
+            services.AddScoped<IEntityMapper, CryptoTrackerEntityMapper>();
+            services.AddScoped<IBusinessService<PortfolioDataTransferModel>, PortfolioBusinessService>();
+
+            services.AddOptions();
+
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

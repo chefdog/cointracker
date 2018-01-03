@@ -11,7 +11,7 @@ namespace CryptoTracker.Common.EntityLayer
         {
             Mappings = new List<IEntityMap>()
             {
-                new ProductMap() as IEntityMap
+                new CoinModelMap() as IEntityMap
             };
         }
     }
