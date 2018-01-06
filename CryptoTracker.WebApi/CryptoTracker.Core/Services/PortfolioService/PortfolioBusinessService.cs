@@ -12,9 +12,6 @@ namespace CryptoTracker.Core.Services.PortfolioService
     public class PortfolioBusinessService : IBusinessService<PortfolioDataTransferModel>, IDisposable
     {
         private IRepository _repos;
-        private IRepository _coinRepos;
-        private IRepository _historyRepos;
-        private IRepository _exchangeRepos;
         public PortfolioBusinessService(AppSettings appSettings, CTDbContext dbContext) {
             _repos = new PortfolioRepository(dbContext);
             
@@ -22,19 +19,15 @@ namespace CryptoTracker.Core.Services.PortfolioService
 
         public async Task<PortfolioDataTransferModel> Create(PortfolioDataTransferModel dto)
         {
+            PortfolioDataTransferModel result = new PortfolioDataTransferModel();
             try
             {
-                //check lastupdate
-                var lastest = _historyRepos.GetMany(10, 0, HistoryLogEnum.REMOTE_API.ToString());
-
-                //check latest update from remote api
-                var exchangeModels = _exchangeRepos.GetMany(1000, 0, string.Empty);
-
+                
             }
             catch (Exception ex) {
-
+                Exceptions.ExceptionHandler.HandleBusinessServiceException(ex);
             }
-            return null;
+            return result;
         }
 
         public Task<PortfolioDataTransferModel> Find(PortfolioDataTransferModel dto)

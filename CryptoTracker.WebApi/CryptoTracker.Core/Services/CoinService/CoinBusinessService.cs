@@ -1,6 +1,7 @@
 ﻿using CryptoTracker.Common;
 using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.DataTransferModels;
+using CryptoTracker.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,9 +28,19 @@ namespace CryptoTracker.Core.Services.CoinService
             throw new NotImplementedException();
         }
 
-        public Task<List<CoinDataTransferModel>> GetMany(int start, int skip, int max)
+        public async Task<List<CoinDataTransferModel>> GetMany(int start, int skip, int max)
         {
-            throw new NotImplementedException();
+            List<CoinDataTransferModel> result = new List<CoinDataTransferModel>();
+            try
+            {
+                //1 get info on latest request
+                //2 if latest request is within range, proceed with database call
+                //3 if latest request is outside range, fetch from remote api and proceed with database update or add.
+            }
+            catch (RepositoryException rex) {
+                ExceptionHandler.ProcessRepositoryException(rex);
+            }
+            return result;
         }
 
         public Task<CoinDataTransferModel> Remove(CoinDataTransferModel dto)
