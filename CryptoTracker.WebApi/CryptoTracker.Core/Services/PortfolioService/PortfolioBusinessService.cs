@@ -12,9 +12,11 @@ namespace CryptoTracker.Core.Services.PortfolioService
     public class PortfolioBusinessService : IBusinessService<PortfolioDataTransferModel>, IDisposable
     {
         private IRepository _repos;
-        public PortfolioBusinessService(AppSettings appSettings, CTDbContext dbContext) {
+        private IBusinessService<CoinDataTransferModel> _coinBusinessService;
+
+        public PortfolioBusinessService(AppSettings appSettings, CTDbContext dbContext, IBusinessService<CoinDataTransferModel> coinBusinessService) {
             _repos = new PortfolioRepository(dbContext);
-            
+            _coinBusinessService = coinBusinessService;
         }
 
         public async Task<PortfolioDataTransferModel> Create(PortfolioDataTransferModel dto)
@@ -60,6 +62,7 @@ namespace CryptoTracker.Core.Services.PortfolioService
                 if (disposing)
                 {
                     // TODO: dispose managed state (managed objects).
+                    _repos.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

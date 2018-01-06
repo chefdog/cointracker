@@ -12,10 +12,12 @@ namespace CryptoTracker.Core.Services.CoinService
     {
         private IRepository _exchangeRepos;
         private IRepository _coinRepos;
+        private IBusinessService<HistoryLogDataTransferModel> _historyService;
 
-        public CoinBusinessService(AppSettings appSettings, CTDbContext dbContext) {
+        public CoinBusinessService(AppSettings appSettings, CTDbContext dbContext, IBusinessService<HistoryLogDataTransferModel> historyService) {
             _exchangeRepos = new ExchangeRepository(appSettings.CoinMarketCap.BaseAddress, appSettings.CoinMarketCap.Api, appSettings.CoinMarketCap.QueryParams);
             _coinRepos = new CoinRepository(dbContext);
+
         }
 
         public Task<CoinDataTransferModel> Create(CoinDataTransferModel dto)

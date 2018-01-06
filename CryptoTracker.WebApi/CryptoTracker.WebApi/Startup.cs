@@ -2,6 +2,7 @@
 using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.DataTransferModels;
 using CryptoTracker.Core.ModelMappers;
+using CryptoTracker.Core.Services.HistoryService;
 using CryptoTracker.Core.Services.PortfolioService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,7 @@ namespace CryptoTracker.WebApi
 
             services.AddScoped<IEntityMapper, CryptoTrackerEntityMapper>();
             services.AddScoped<IBusinessService<PortfolioDataTransferModel>, PortfolioBusinessService>();
+            services.AddScoped<IBusinessService<HistoryLogDataTransferModel>, HistoryBusinessService>();
 
             services.AddOptions();
 
