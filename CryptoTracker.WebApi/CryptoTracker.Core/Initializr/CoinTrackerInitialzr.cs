@@ -18,13 +18,18 @@ namespace CryptoTracker.Core.Initializr
 
         public async Task Seed()
         {
-            //var current = _context.Set<PortfolioModel>();
-            //current.
+            List<UserAccountModel> accounts = new List<UserAccountModel>();
+            var usr = new UserAccountModel { Created = DateTime.Now, Email = "marco@chefdog.com", FirstName = "Marco", LastModified = DateTime.Now, LastModifiedBy = "System", LastName = "van Zuijlen", Title = "", Password = "1BitCo!n31" };
+            accounts.Add(usr);
+            usr = new UserAccountModel { Created = DateTime.Now, Email = "erik@purplefox.nl", FirstName = "Erik", LastModified = DateTime.Now, LastModifiedBy = "System", LastName = "Peschier", Title = "", Password = "1BitCo!n32" };
+            accounts.Add(usr);
+            usr = new UserAccountModel { Created = DateTime.Now, Email = "dennals@gmail.com", FirstName = "Daniel", LastModified = DateTime.Now, LastModifiedBy = "System", LastName = "Ennals", Title = "", Password = "1BitCo!n33" };
+            accounts.Add(usr);
 
-            //{
-            //    _context.AddRange(_personCategoryStatus);
-            //    await _context.SaveChangesAsync();
-            //}
+            await _context.Set<UserAccountModel>().AddRangeAsync(accounts);
+            
         }
+
+        
     }
 }

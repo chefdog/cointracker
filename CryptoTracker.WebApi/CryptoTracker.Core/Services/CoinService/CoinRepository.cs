@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CryptoTracker.Core.Services.CoinService
 {
-    public class CoinRepository : IRepository
+    internal class CoinRepository : IRepository
     {
         private CTDbContext _dbContext;
         public CoinRepository(CTDbContext dbContext) {

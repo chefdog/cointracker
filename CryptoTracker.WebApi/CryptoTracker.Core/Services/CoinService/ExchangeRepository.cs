@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace CryptoTracker.Core.Services.CoinService
 {
-    public class ExchangeRepository : IRepository
+    internal class ExchangeRepository : IRepository
     {
         private string _baseAddress;
         private string _api;

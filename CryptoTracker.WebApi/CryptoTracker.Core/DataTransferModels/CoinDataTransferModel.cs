@@ -7,5 +7,6 @@ namespace CryptoTracker.Core.DataTransferModels
 {
     public class CoinDataTransferModel : BaseDto, IModel
     {
+        public string Tag { get; internal set; }
     }
 }
