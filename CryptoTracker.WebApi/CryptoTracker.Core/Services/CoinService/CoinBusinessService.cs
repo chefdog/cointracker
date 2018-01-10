@@ -4,20 +4,26 @@ using CryptoTracker.Core.DataTransferModels;
 using CryptoTracker.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using CryptoTracker.Core.Services.HistoryService;
 
 namespace CryptoTracker.Core.Services.CoinService
 {
     public class CoinBusinessService : IBusinessService<CoinDataTransferModel>, IDisposable
     {
+        #region fields
+        private AppSettings _appSettings;
         private IRepository _exchangeRepos;
         private IRepository _coinRepos;
         private IBusinessService<HistoryLogDataTransferModel> _historyService;
-
-        public CoinBusinessService(AppSettings appSettings, CTDbContext dbContext, IBusinessService<HistoryLogDataTransferModel> historyService) {
+        #endregion
+        public CoinBusinessService(AppSettings appSettings, 
+            CTDbContext dbContext, IBusinessService<HistoryLogDataTransferModel> historyService) {
             _exchangeRepos = new ExchangeRepository(appSettings.CoinMarketCap.BaseAddress, appSettings.CoinMarketCap.Api, appSettings.CoinMarketCap.QueryParams);
             _coinRepos = new CoinRepository(dbContext);
-
+            _historyService = historyService;
+            _appSettings = appSettings;
         }
 
         public Task<CoinDataTransferModel> Create(CoinDataTransferModel dto)
@@ -36,7 +42,20 @@ namespace CryptoTracker.Core.Services.CoinService
             try
             {
                 //1 get info on latest request
+                var historyData = await _historyService.GetMany(0, 0, 100);
                 //2 if latest request is within range, proceed with database call
+                if (historyData.Any())
+                {
+                    historyData = historyData.OrderByDescending(x => x.LastModified).ToList();
+                    var query = from h in historyData
+                        where h.LastModified.AddSeconds(_appSettings.CoinMarketCap.RefreshInterval) < DateTime.Now
+                        select h;
+                    if (query.Any())
+                    {
+                        var remoteData =_exchangeRepos.GetMany(1000, 0, string.Empty);
+                        
+                    }
+                }
                 //3 if latest request is outside range, fetch from remote api and proceed with database update or add.
             }
             catch (RepositoryException rex) {

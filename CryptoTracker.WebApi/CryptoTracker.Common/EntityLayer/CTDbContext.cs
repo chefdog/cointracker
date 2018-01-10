@@ -9,7 +9,7 @@ namespace CryptoTracker.Common
     {
         public CTDbContext(IOptions<AppSettings> appSettings, IEntityMapper entityMapper)
         {
-            ConnectionString = appSettings.Value.ConnectionString;
+            ConnectionString = "";
 
             EntityMapper = entityMapper;
         }
