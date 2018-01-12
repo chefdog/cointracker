@@ -55,7 +55,8 @@ namespace CryptoTracker.Core.Services.CoinService
                     client.DefaultRequestHeaders.Accept.Add(contentType);
                     HttpResponseMessage response = client.GetAsync(_api).Result;
                     var stringData = response.Content.ReadAsStringAsync().Result;
-                    result = JsonConvert.DeserializeObject<IQueryable<ExchangeModel>>(stringData);
+                    var data = JsonConvert.DeserializeObject<List<ExchangeModel>>(stringData);
+                    result = data.AsQueryable<ExchangeModel>();
                 }
                 return result.Cast<IModel>();
             }

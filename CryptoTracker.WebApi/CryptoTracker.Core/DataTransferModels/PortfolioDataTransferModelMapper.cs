@@ -1,5 +1,4 @@
-﻿
-using CryptoTracker.Core.Models;
+﻿using CryptoTracker.Core.Models;
 
 namespace CryptoTracker.Core.DataTransferModels
 {
@@ -9,6 +8,7 @@ namespace CryptoTracker.Core.DataTransferModels
         {
             return new PortfolioDataTransferModel
             {
+                Id= entity.Id,
                 Created = entity.Created,
                 LastModified = entity.LastModified,
                 Description = entity.Description,
@@ -25,6 +25,7 @@ namespace CryptoTracker.Core.DataTransferModels
         {
             return new PortfolioModel
             {
+                Id = dto.Id,
                 Created = dto.Created,
                 LastModified = dto.LastModified,
                 Description = dto.Description,

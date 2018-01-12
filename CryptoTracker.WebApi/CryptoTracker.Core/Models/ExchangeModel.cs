@@ -1,9 +1,11 @@
-﻿using System.Runtime.Serialization;
+﻿using CryptoTracker.Common.Interfaces;
+using System;
+using System.Runtime.Serialization;
 
 namespace CryptoTracker.Core.Models
 {
     [DataContract]
-    public class ExchangeModel
+    public class ExchangeModel : IModel
     {
         [DataMember(Name ="id")]
         public string Title { get; set; }
@@ -49,6 +51,10 @@ namespace CryptoTracker.Core.Models
 
         [DataMember(Name = "last_updated")]
         public string LastUpdate { get; set; }
-        
+
+        public DateTime Created { get; set; }
+        public DateTime LastModified { get; set; }
+        public string LastModifiedBy { get; set; }
+        public int Rating { get; set; }
     }
 }

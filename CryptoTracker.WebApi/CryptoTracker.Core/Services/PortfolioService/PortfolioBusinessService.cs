@@ -15,7 +15,6 @@ namespace CryptoTracker.Core.Services.PortfolioService
         private IRepository _repos;
         private IRepository _itemRepos;
         private IBusinessService<CoinDataTransferModel> _coinBusinessService;
-        
 
         public PortfolioBusinessService(AppSettings appSettings, CTDbContext dbContext, IBusinessService<CoinDataTransferModel> coinBusinessService) {
             _repos = new PortfolioRepository(dbContext);
@@ -30,13 +29,12 @@ namespace CryptoTracker.Core.Services.PortfolioService
             {
                 var model = dto.ToModel();
                 await _repos.AddAsync(model);
-
                 var remoteData = _coinBusinessService.GetMany(0, 0, 1000);
                 var data = from c in remoteData.Result
                     from i in dto.Items
                     where c.Tag.Equals(i.CoinTag)
                     select _itemRepos.AddAsync(i.ToModel());
-                
+                result = data.Cast<PortfolioModel>().Select(p => p.ToDto()).FirstOrDefault();
             }
             catch (Exception ex) {
                 Exceptions.ExceptionHandler.HandleBusinessServiceException(ex);

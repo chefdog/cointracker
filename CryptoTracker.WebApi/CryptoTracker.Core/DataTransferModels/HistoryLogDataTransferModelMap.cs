@@ -2,25 +2,26 @@
 
 namespace CryptoTracker.Core.DataTransferModels
 {
-    public static class CoinDataTransferModelMapper
+    public static class HistoryLogDataTransferModelMap
     {
-        public static CoinDataTransferModel ToDto(this CoinModel entity)
+        public static HistoryLogDataTransferModel ToDto(this HistoryLogModel entity)
         {
-            return new CoinDataTransferModel
+            return new HistoryLogDataTransferModel
             {
-                Id = entity.Id,
+                Id =  entity.Id,
                 Created = entity.Created,
                 LastModified = entity.LastModified,
                 LastModifiedBy = entity.LastModifiedBy,
                 Rating = entity.Rating,
                 Title = entity.Title,
-                Tag = entity.Tag
+                ParamKey = entity.ParamKey,
+                ParamValue = entity.ParamValue
             };
         }
 
-        public static CoinModel ToModel(this CoinDataTransferModel dto)
+        public static HistoryLogModel ToModel(this HistoryLogDataTransferModel dto)
         {
-            return new CoinModel
+            return new HistoryLogModel
             {
                 Id = dto.Id,
                 Created = dto.Created,
@@ -28,7 +29,8 @@ namespace CryptoTracker.Core.DataTransferModels
                 LastModifiedBy = dto.LastModifiedBy,
                 Rating = dto.Rating,
                 Title = dto.Title,
-                Tag = dto.Tag
+                ParamKey = dto.ParamKey,
+                ParamValue = dto.ParamValue
             };
         }
     }

@@ -6,6 +6,7 @@ namespace CryptoTracker.Common
 {
     public class AppSettings
     {        
-        public CoinMarketCap CoinMarketCap{get;set;}
+        public CoinMarketCap CoinMarketCap{ get ;set;}
+        public string ConnectionString { get; set; }
     }
 }

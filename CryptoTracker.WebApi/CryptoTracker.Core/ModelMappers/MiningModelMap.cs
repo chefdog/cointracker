@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CryptoTracker.Common.Interfaces;
+﻿using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CryptoTracker.Core.ModelMappers
 {
-    public class PortfolioModelMap : IEntityMap
+    public class MiningModelMap : IEntityMap
     {
         public void Map(ModelBuilder modelBuilder)
         {
-            var entity = modelBuilder.Entity<PortfolioModel>();
+            var entity = modelBuilder.Entity<MiningRigModel>();
 
-            entity.ToTable("Portfolio", "ct");
+            entity.ToTable("MiningRig", "ct");
 
             entity.HasKey(p => new { p.Id });
 
@@ -18,13 +18,13 @@ namespace CryptoTracker.Core.ModelMappers
         }
     }
 
-    public class PortfolioItemModelMap : IEntityMap
+    public class MiningItemModelMap : IEntityMap
     {
         public void Map(ModelBuilder modelBuilder)
         {
-            var entity = modelBuilder.Entity<PortfolioItemModel>();
+            var entity = modelBuilder.Entity<MiningItemModel>();
 
-            entity.ToTable("PortfolioItem", "ct");
+            entity.ToTable("MiningItem", "ct");
 
             entity.HasKey(p => new { p.Id });
 

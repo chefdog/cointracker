@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CryptoTracker.Core.Services.PortfolioService
 {
-    public class PortfolioRepository : IRepository
+    internal class PortfolioRepository : IRepository
     {
         private CTDbContext _dbContext;
         public PortfolioRepository(CTDbContext dbContext)

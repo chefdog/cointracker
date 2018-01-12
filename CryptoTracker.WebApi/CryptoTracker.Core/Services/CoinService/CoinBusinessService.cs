@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CryptoTracker.Core.Services.HistoryService;
+using CryptoTracker.DataAccess.Enums;
+using CryptoTracker.Core.Models;
 
 namespace CryptoTracker.Core.Services.CoinService
 {
@@ -26,9 +28,22 @@ namespace CryptoTracker.Core.Services.CoinService
             _appSettings = appSettings;
         }
 
-        public Task<CoinDataTransferModel> Create(CoinDataTransferModel dto)
+        public async Task<CoinDataTransferModel> Create(CoinDataTransferModel dto)
         {
-            throw new NotImplementedException();
+            dto.Id = 0;
+            try
+            {
+                var model = await _coinRepos.AddAsync(dto.ToModel()) as CoinModel;
+                return model.ToDto();
+            }
+            catch (RepositoryException rex) {
+                ExceptionHandler.ProcessRepositoryException(rex);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.HandleBusinessServiceException(ex);
+            }
+            return dto;
         }
 
         public Task<CoinDataTransferModel> Find(CoinDataTransferModel dto)
@@ -39,6 +54,7 @@ namespace CryptoTracker.Core.Services.CoinService
         public async Task<List<CoinDataTransferModel>> GetMany(int start, int skip, int max)
         {
             List<CoinDataTransferModel> result = new List<CoinDataTransferModel>();
+            IQueryable<ExchangeModel> remoteData = null;
             try
             {
                 //1 get info on latest request
@@ -48,15 +64,25 @@ namespace CryptoTracker.Core.Services.CoinService
                 {
                     historyData = historyData.OrderByDescending(x => x.LastModified).ToList();
                     var query = from h in historyData
-                        where h.LastModified.AddSeconds(_appSettings.CoinMarketCap.RefreshInterval) < DateTime.Now
-                        select h;
+                                where h.LastModified.AddSeconds(_appSettings.CoinMarketCap.RefreshInterval) < DateTime.Now
+                                select h;
                     if (query.Any())
                     {
-                        var remoteData =_exchangeRepos.GetMany(1000, 0, string.Empty);
-                        
+                        remoteData = _exchangeRepos.GetMany(1000, 0, string.Empty).Cast<ExchangeModel>();
+                        var insertQuery = from r in remoteData select _coinRepos.AddAsync(ExchangeModelToCoinModel(r));
                     }
                 }
-                //3 if latest request is outside range, fetch from remote api and proceed with database update or add.
+                else {
+                    var historyLog = new HistoryLogDataTransferModel {
+                        ParamKey = HistoryLogEnum.REMOTE_API.ToString(),
+                        ParamValue = DateTime.Now.ToString()
+                    };
+                    await _historyService.Create(historyLog);
+                    remoteData = _exchangeRepos.GetMany(1000, 0, string.Empty).Cast<ExchangeModel>();
+                    var query = from r in remoteData select _coinRepos.AddAsync(ExchangeModelToCoinModel(r));
+                }
+                var coinData = _coinRepos.GetMany(1000, 0, "");
+                result = coinData.Cast<CoinModel>().Select(c => c.ToDto()).ToList();
             }
             catch (RepositoryException rex) {
                 ExceptionHandler.ProcessRepositoryException(rex);
@@ -74,6 +100,16 @@ namespace CryptoTracker.Core.Services.CoinService
             throw new NotImplementedException();
         }
 
+        private CoinModel ExchangeModelToCoinModel(ExchangeModel exchangeModel) {
+            if (exchangeModel == null) return null;
+            return new CoinModel
+            {
+                Title = exchangeModel.Title,
+                Tag = exchangeModel.Tag,
+                ListPrice = exchangeModel.UsdPrice
+            };
+        }
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -88,7 +124,9 @@ namespace CryptoTracker.Core.Services.CoinService
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.
-
+                _historyService.Dispose();
+                _exchangeRepos.Dispose();
+                _coinRepos.Dispose();
                 disposedValue = true;
             }
         }

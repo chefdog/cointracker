@@ -1,13 +1,13 @@
-﻿using CryptoTracker.Common;
-using CryptoTracker.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using CryptoTracker.Common;
+using CryptoTracker.Core.Models;
+
 
 namespace CryptoTracker.Core.Initializr
 {
-    class CoinTrackerInitialzr
+    public class CoinTrackerInitialzr
     {
         private CTDbContext _context;
 
@@ -27,9 +27,7 @@ namespace CryptoTracker.Core.Initializr
             accounts.Add(usr);
 
             await _context.Set<UserAccountModel>().AddRangeAsync(accounts);
-            
-        }
-
-        
+            await _context.SaveChangesAsync();
+        }        
     }
 }

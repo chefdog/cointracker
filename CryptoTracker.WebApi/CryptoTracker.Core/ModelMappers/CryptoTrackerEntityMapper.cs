@@ -10,7 +10,15 @@ namespace CryptoTracker.Core.ModelMappers
         {
             Mappings = new List<IEntityMap>()
             {
-                new CoinModelMap() as IEntityMap
+                new ArticleModelMap() as IEntityMap,
+                new CoinModelMap() as IEntityMap,
+                new HistoryLogModelMap() as IEntityMap,
+                new MiningModelMap() as IEntityMap,
+                new MiningItemModelMap() as IEntityMap,
+                new ParagraphModelMap() as IEntityMap,
+                new PortfolioModelMap() as IEntityMap,
+                new PortfolioItemModelMap() as IEntityMap,
+                new UserAccountModelMap() as IEntityMap
             };
         }
     }

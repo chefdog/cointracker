@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CryptoTracker.Core.DataTransferModels
 {
     public class BaseDto
     {
+        public Int64 Id { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastModified { get; set; }
         public string LastModifiedBy { get; set; }

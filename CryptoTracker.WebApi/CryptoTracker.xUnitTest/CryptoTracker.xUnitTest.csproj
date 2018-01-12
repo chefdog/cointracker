@@ -13,4 +13,10 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CryptoTracker.Common\CryptoTracker.Common.csproj" />
+    <ProjectReference Include="..\CryptoTracker.Core\CryptoTracker.Core.csproj" />
+    <ProjectReference Include="..\CryptoTracker.Exceptions\CryptoTracker.Exceptions.csproj" />
+  </ItemGroup>
+
 </Project>

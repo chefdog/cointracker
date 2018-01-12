@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CryptoTracker.Common;
 using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.DataTransferModels;
+using CryptoTracker.Core.Models;
 using CryptoTracker.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CryptoTracker.Core.Services.HistoryService
 {
@@ -16,12 +19,17 @@ namespace CryptoTracker.Core.Services.HistoryService
             _repos = new HistoryLogRepository(dbContext);
         }
 
-        public Task<HistoryLogDataTransferModel> Create(HistoryLogDataTransferModel dto)
+        public async Task<HistoryLogDataTransferModel> Create(HistoryLogDataTransferModel dto)
         {
             try
             {
-                
-                
+                dto.Id = 0;
+                var data = await _repos.AddAsync(dto.ToModel());
+                if (data != null) {
+                    var model = data as HistoryLogModel;
+                    return model.ToDto();
+                }
+                return new HistoryLogDataTransferModel();
             }
             catch (RepositoryException rex) {
                 ExceptionHandler.ProcessRepositoryException(rex);
@@ -37,9 +45,15 @@ namespace CryptoTracker.Core.Services.HistoryService
             throw new NotImplementedException();
         }
 
-        public Task<List<HistoryLogDataTransferModel>> GetMany(int start, int skip, int max)
+        public async Task<List<HistoryLogDataTransferModel>> GetMany(int start, int skip, int max)
         {
-            throw new NotImplementedException();
+            var data = _repos.GetMany(max, start, "");
+            if (data.Any())
+            {
+                var result = await (from h in data.Cast<HistoryLogModel>() select h.ToDto()).ToListAsync();
+                return result;
+            }
+            return new List<HistoryLogDataTransferModel>();
         }
 
         public Task<HistoryLogDataTransferModel> Remove(HistoryLogDataTransferModel dto)

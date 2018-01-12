@@ -19,12 +19,13 @@ namespace CryptoTracker.Core.Services.CoinService
         {
             try
             {
+                if (entity == null) return null;                
                 var model = entity as CoinModel;
                 model.Created = DateTime.Now;
                 model.LastModified = DateTime.Now;
                 model.RowGuid = Guid.NewGuid();
                 await _dbContext.Set<CoinModel>().AddAsync(model);
-                await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();                
                 return model;
             }
             catch (Exception ex) {
