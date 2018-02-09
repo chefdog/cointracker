@@ -26,8 +26,25 @@ namespace CryptoTracker.xUnitTest
             var result = await service.Create(dto);
 
             service.Dispose();
+            Assert.NotNull(result);            
+        }
+        [Fact]
+        public async Task TestUpdatePortfolio() {
+            PortfolioDataTransferModel dto = new PortfolioDataTransferModel
+            {
+                UserId = 1,
+                Title = "Test portfolio 1",
+                Description = "Test portfolio description"
+            };
+
+
+
+            var service = _serviceMocker.GetPortfolioService();
+            var result = await service.Create(dto);
+
+
+            service.Dispose();
             Assert.NotNull(result);
-            
         }
     }
 }
