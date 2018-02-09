@@ -37,14 +37,22 @@ namespace CryptoTracker.xUnitTest
                 Description = "Test portfolio description"
             };
 
+            PortfolioItemDataTransferModel item = new PortfolioItemDataTransferModel
+            {
+                 CoinTag = "BTC",
+                 ListPrice = 1000,
+                 Title = "Bitcoin",
+                 LastModified = DateTime.Now,
+                 LastModifiedBy = "Marco",
+                 Created = DateTime.Now
+            };
 
+            dto.Items.Add(item);
+            var portfolioService = _serviceMocker.GetPortfolioService();
+            var portfolio = await portfolioService.Update(dto);
 
-            var service = _serviceMocker.GetPortfolioService();
-            var result = await service.Create(dto);
-
-
-            service.Dispose();
-            Assert.NotNull(result);
+            portfolioService.Dispose();
+            Assert.NotNull(portfolio);
         }
     }
 }

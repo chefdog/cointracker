@@ -62,7 +62,7 @@ namespace CryptoTracker.Core.Services.PortfolioService
                 }
                 if (!String.IsNullOrEmpty(model.Title) && result == null)
                 {
-                    result = await _dbContext.Set<PortfolioModel>().FindAsync(model.Title);
+                    result = _dbContext.Set<PortfolioModel>().Where(p => p.Title == model.Title).FirstOrDefault();
                 }
                 return result as IModel;
             }

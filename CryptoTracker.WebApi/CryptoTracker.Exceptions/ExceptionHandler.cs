@@ -18,5 +18,10 @@ namespace CryptoTracker.Exceptions
             //normally start logging and bubble up 
             throw rex;
         }
+
+        public static Exception HandleBusinessServiceException(string message)
+        {
+            throw new Exception(message);
+        }
     }
 }

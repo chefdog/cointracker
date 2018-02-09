@@ -6,7 +6,7 @@ using CryptoTracker.Common;
 using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.DataTransferModels;
 using CryptoTracker.Core.Models;
-
+using CryptoTracker.Exceptions;
 
 namespace CryptoTracker.Core.Services.PortfolioService
 {
@@ -57,9 +57,29 @@ namespace CryptoTracker.Core.Services.PortfolioService
             throw new NotImplementedException();
         }
 
-        public Task<PortfolioDataTransferModel> Update(PortfolioDataTransferModel dto)
+        public async Task<PortfolioDataTransferModel> Update(PortfolioDataTransferModel dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var model = dto.ToModel();
+                var portfolio = await _repos.GetAsync(model) as PortfolioModel;
+                if (portfolio.Id == model.Id)
+                {
+                    var items = dto.Items.Select(i => i.ToModel()).ToList<IModel>();
+                    items.Select(i => _itemRepos.AddAsync(i));
+                    await _repos.UpdateAsync(model as IModel);
+                    return dto;
+                }
+                ExceptionHandler.HandleBusinessServiceException("Not a valid portfolio");                
+            }
+            catch (ValidationException vex) {
+                throw vex;
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.HandleBusinessServiceException(ex);
+            }
+            return dto;
         }
         
         #region IDisposable Support

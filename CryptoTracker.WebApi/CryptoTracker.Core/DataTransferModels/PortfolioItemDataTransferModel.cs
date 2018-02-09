@@ -12,6 +12,6 @@ namespace CryptoTracker.Core.DataTransferModels
         [Required]
         public string CoinTag { get; set; }
         public Int64 CoinId { get; set; }
-        public decimal ListPrice { get; internal set; }
+        public decimal ListPrice { get; set; }
     }
 }
