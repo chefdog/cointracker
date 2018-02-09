@@ -16,9 +16,7 @@ namespace CryptoTracker.WebApi
 {
     /// <summary>
     /// 
-    /// </summary>
-    /// <see cref="https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/"/>
-    /// <seealso cref="https://www.codeproject.com/Articles/1205160/ASP-NET-Core-Bearer-Authentication"/>
+    /// </summary>    
     public class Startup
     {
         public Startup(IConfiguration configuration)
