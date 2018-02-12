@@ -23,5 +23,10 @@ namespace CryptoTracker.Exceptions
         {
             throw new Exception(message);
         }
+
+        public static Exception HandleBusinessServiceValidationException(string message)
+        {
+            throw new ValidationException(message);
+        }
     }
 }

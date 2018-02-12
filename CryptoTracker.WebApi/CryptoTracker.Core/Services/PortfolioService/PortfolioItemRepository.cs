@@ -3,6 +3,7 @@ using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.Models;
 using CryptoTracker.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,6 +34,28 @@ namespace CryptoTracker.Core.Services.PortfolioService
                 ExceptionHandler.HandleRepositoryException(ex);
             }
             return entity;
+        }
+
+        public async Task<List<IModel>> AddRangeAsync(List<IModel> data)
+        {
+            try
+            {
+                var models = data.Cast<PortfolioItemModel>();
+                foreach (var model in models) {
+                    model.LastModified = DateTime.Now;
+                    model.LastModified = DateTime.Now;
+                    model.RowGuid = Guid.NewGuid();
+                }
+
+                await _dbContext.Set<PortfolioItemModel>().AddRangeAsync(models);
+                await _dbContext.SaveChangesAsync();
+                return models as List<IModel>;
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.HandleRepositoryException(ex);
+            }
+            return data;
         }
 
         public async Task<IModel> DeleteAsync(IModel entity)
@@ -138,6 +161,8 @@ namespace CryptoTracker.Core.Services.PortfolioService
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
+        
         #endregion
     }
 }

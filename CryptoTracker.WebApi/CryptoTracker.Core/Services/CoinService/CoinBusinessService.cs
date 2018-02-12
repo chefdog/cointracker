@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CryptoTracker.Core.Services.HistoryService;
 using CryptoTracker.DataAccess.Enums;
 using CryptoTracker.Core.Models;
+using CryptoTracker.Core.Services.Helpers;
 
 namespace CryptoTracker.Core.Services.CoinService
 {
@@ -54,35 +55,40 @@ namespace CryptoTracker.Core.Services.CoinService
         public async Task<List<CoinDataTransferModel>> GetMany(int start, int skip, int max)
         {
             List<CoinDataTransferModel> result = new List<CoinDataTransferModel>();
-            IQueryable<ExchangeModel> remoteData = null;
             try
             {
-                //1 get info on latest request
+                var historyLog = new HistoryLogDataTransferModel
+                {
+                    ParamKey = HistoryLogEnum.REMOTE_API.ToString(),
+                    ParamValue = DateTime.Now.ToString()
+                };
+                bool shouldUpdate = false;
+                //1. get info on latest request
                 var historyData = await _historyService.GetMany(0, 0, 100);
                 //2 if latest request is within range, proceed with database call
                 if (historyData.Any())
                 {
                     historyData = historyData.OrderByDescending(x => x.LastModified).ToList();
                     var query = from h in historyData
-                                where h.LastModified.AddSeconds(_appSettings.CoinMarketCap.RefreshInterval) < DateTime.Now
+                                where h.LastModified.AddSeconds(_appSettings.CoinMarketCap.RefreshInterval) >= DateTime.Now
                                 select h;
-                    if (query.Any())
-                    {
-                        remoteData = _exchangeRepos.GetMany(1000, 0, string.Empty).Cast<ExchangeModel>();
-                        var insertQuery = from r in remoteData select _coinRepos.AddAsync(ExchangeModelToCoinModel(r));
-                    }
+                    if (!query.Any()) { shouldUpdate = true; }
+                }
+
+                if (shouldUpdate) await insertRemoteData(historyLog);
+
+                var coinData = _coinRepos.GetMany(1000, 0, "");
+                if (coinData.Any())
+                {
+                    result = coinData.Cast<CoinModel>().Select(c => c.ToDto()).ToList();
+                    return result;
                 }
                 else {
-                    var historyLog = new HistoryLogDataTransferModel {
-                        ParamKey = HistoryLogEnum.REMOTE_API.ToString(),
-                        ParamValue = DateTime.Now.ToString()
-                    };
-                    await _historyService.Create(historyLog);
-                    remoteData = _exchangeRepos.GetMany(1000, 0, string.Empty).Cast<ExchangeModel>();
-                    var query = from r in remoteData select _coinRepos.AddAsync(ExchangeModelToCoinModel(r));
+                    await insertRemoteData(historyLog);
+                    coinData = _coinRepos.GetMany(1000, 0, "");
+                    result = coinData.Cast<CoinModel>().Select(c => c.ToDto()).ToList();
+                    return result;
                 }
-                var coinData = _coinRepos.GetMany(1000, 0, "");
-                result = coinData.Cast<CoinModel>().Select(c => c.ToDto()).ToList();
             }
             catch (RepositoryException rex) {
                 ExceptionHandler.ProcessRepositoryException(rex);
@@ -99,16 +105,13 @@ namespace CryptoTracker.Core.Services.CoinService
         {
             throw new NotImplementedException();
         }
-
-        private CoinModel ExchangeModelToCoinModel(ExchangeModel exchangeModel) {
-            if (exchangeModel == null) return null;
-            return new CoinModel
-            {
-                Title = exchangeModel.Title,
-                Tag = exchangeModel.Tag,
-                ListPrice = exchangeModel.UsdPrice
-            };
+        private async Task insertRemoteData(HistoryLogDataTransferModel historyLogModel) {
+            await _historyService.Create(historyLogModel);
+            var remoteData = _exchangeRepos.GetMany(1000, 0, string.Empty).Cast<ExchangeModel>();
+            var data = ServiceHelper.ExchangeModelToCoinModel(remoteData.ToList());
+            await _coinRepos.AddRangeAsync(data.ToList<IModel>());
         }
+        
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls

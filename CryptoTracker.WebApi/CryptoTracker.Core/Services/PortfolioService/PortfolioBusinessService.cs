@@ -28,13 +28,21 @@ namespace CryptoTracker.Core.Services.PortfolioService
             try
             {
                 var model = dto.ToModel();
-                await _repos.AddAsync(model);
-                var remoteData = _coinBusinessService.GetMany(0, 0, 1000);
-                var data = from c in remoteData.Result
-                    from i in dto.Items
-                    where c.Tag.Equals(i.CoinTag)
-                    select _itemRepos.AddAsync(i.ToModel());
-                result = data.Cast<PortfolioModel>().Select(p => p.ToDto()).FirstOrDefault();
+                var portfolio = await _repos.GetAsync(model) as PortfolioModel;
+                if (portfolio != null) {
+                    throw new ValidationException("Entity already excist");
+                }
+                
+                portfolio = await _repos.AddAsync(model) as PortfolioModel;
+                result = portfolio.ToDto();
+                result.Items = dto.Items;
+
+                if (result.Items.Any())
+                {
+                    var items = result.Items.Select(i => i.ToModel()).ToList<IModel>();
+                    await _itemRepos.AddRangeAsync(items);
+                }
+                return result;
             }
             catch (Exception ex) {
                 Exceptions.ExceptionHandler.HandleBusinessServiceException(ex);
@@ -65,9 +73,14 @@ namespace CryptoTracker.Core.Services.PortfolioService
                 var portfolio = await _repos.GetAsync(model) as PortfolioModel;
                 if (portfolio.Id == model.Id)
                 {
-                    var items = dto.Items.Select(i => i.ToModel()).ToList<IModel>();
-                    items.Select(i => _itemRepos.AddAsync(i));
-                    await _repos.UpdateAsync(model as IModel);
+                    if (dto.Items.Any())
+                    {
+                        var items = dto.Items.Select(i => i.ToModel()).ToList<IModel>();
+                        await _itemRepos.AddRangeAsync(items);                        
+                    }
+
+                    model.LastModified = DateTime.Now;
+                    await _repos.UpdateAsync(portfolio as IModel);
                     return dto;
                 }
                 ExceptionHandler.HandleBusinessServiceException("Not a valid portfolio");                

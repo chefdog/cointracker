@@ -3,6 +3,7 @@ using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.Models;
 using CryptoTracker.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,6 +30,25 @@ namespace CryptoTracker.Core.Services.CoinService
                 return model;
             }
             catch (Exception ex) {
+                ExceptionHandler.HandleRepositoryException(ex);
+            }
+            return null;
+        }
+
+        public async Task<List<IModel>> AddRangeAsync(List<IModel> data)
+        {
+            try
+            {
+                if (data.Any()) { 
+                    var range = data.Cast<CoinModel>();
+                    _dbContext.Set<CoinModel>().AddRange(range.AsEnumerable());
+                    await _dbContext.SaveChangesAsync();
+                    return data;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
                 ExceptionHandler.HandleRepositoryException(ex);
             }
             return null;

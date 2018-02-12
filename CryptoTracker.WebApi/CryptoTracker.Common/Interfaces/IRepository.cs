@@ -14,6 +14,8 @@ namespace CryptoTracker.Common.Interfaces
 
         Task<IModel> AddAsync(IModel entity);
 
+        Task<List<IModel>> AddRangeAsync(List<IModel> data);
+
         Task<IModel> UpdateAsync(IModel changes);
 
         Task<IModel> DeleteAsync(IModel changes);

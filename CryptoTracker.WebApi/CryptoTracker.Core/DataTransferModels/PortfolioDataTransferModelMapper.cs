@@ -34,7 +34,7 @@ namespace CryptoTracker.Core.DataTransferModels
                 LastModifiedBy = dto.LastModifiedBy,
                 Rating = dto.Rating,
                 Title = dto.Title,
-                UserId = dto.UserId
+                UserId = dto.UserId                
             };
         }
     }

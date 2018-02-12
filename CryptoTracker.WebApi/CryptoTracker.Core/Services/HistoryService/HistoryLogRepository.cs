@@ -3,6 +3,7 @@ using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.Models;
 using CryptoTracker.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -124,6 +125,11 @@ namespace CryptoTracker.Core.Services.HistoryService
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
+        }
+
+        public Task<List<IModel>> AddRangeAsync(List<IModel> data)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

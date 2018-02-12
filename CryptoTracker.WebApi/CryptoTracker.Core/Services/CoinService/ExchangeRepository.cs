@@ -27,6 +27,11 @@ namespace CryptoTracker.Core.Services.CoinService
             throw new NotImplementedException();
         }
 
+        public Task<List<IModel>> AddRangeAsync(List<IModel> data)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IModel> DeleteAsync(IModel changes)
         {
             throw new NotImplementedException();
@@ -34,7 +39,9 @@ namespace CryptoTracker.Core.Services.CoinService
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _baseAddress = string.Empty;
+            _api = string.Empty;
+            _queryParams = null;
         }
 
         public Task<IModel> GetAsync(IModel entity)
