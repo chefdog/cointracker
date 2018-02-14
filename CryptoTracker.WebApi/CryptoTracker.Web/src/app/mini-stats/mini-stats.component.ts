@@ -10,7 +10,10 @@ export class MiniStatsComponent implements OnInit {
   stat: StatModel = {
     id: 1,
     title: 'Bitcoin',
-    amount: 1000.50
+    amount: 10,
+    listPrice: 1000.50,
+    totalValue: 10000.50,
+    change: 10.1,
   };
 
   constructor() { }
