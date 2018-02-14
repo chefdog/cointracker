@@ -4,12 +4,14 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MiniStatsComponent } from './mini-stats/mini-stats.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MiniStatsComponent
+    MiniStatsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule
