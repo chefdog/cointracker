@@ -1,0 +1,15 @@
+@media (min-width: 992px){
+    .navbar-main u>li{
+        display: inline-block;
+        position: relative;
+    }
+    .navbar-main ul>li>a {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .navbar-main u>li.active:first-of-type>a {
+        padding-left: 25px;
+    }
+
+}

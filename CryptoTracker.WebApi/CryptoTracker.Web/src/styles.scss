@@ -1,3 +1,65 @@
+@import "./assets/css/bootstrap.css";
+@import "./assets/css/bootstrap-theme.css";
+
 //== 1: Framework Config
 @import "./sass/framework/colors"; 
-@import "./sass/header/header"; 
+@import "./sass/framework/variables"; 
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+#main-content{
+    padding-top: 50px;
+}
+
+header{
+    min-height: 62px;    
+    background: $header-background;
+}
+.header-top{
+    background: $header-background;
+}
+.navbar{    
+    background: $header-background;    
+}
+#navbar{
+    background: $navbar-background;
+}
+.navbar-brand{
+    color:$brand;    
+}
+.navbar-main ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.navbar-main ul>li {
+    display: inline-block;
+    position: relative;
+}
+.navbar-main ul>li>a {
+    display: block;
+    color: rgba(255,255,255,.7);
+    font-size: 18px;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+    line-height: 18px;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-decoration: none;
+}
+.navbar-main ul>li.active> a {
+    color: #fff;
+    background: $nav-item-active;
+}
+
+
+.m-t-20 {
+    margin-top: 20px;
+}
+.text-muted {
+    color: #707070!important;
+}
+.pull-right {
+    float: right;
+}

@@ -1,0 +1,22 @@
+.mini-stat {
+    box-shadow: 1px 0 20px rgba(0,0,0,.05);
+    padding: 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
+.mini-stat-icon {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    line-height: 60px;
+    text-align: center;
+    font-size: 30px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    float: left;
+    margin-right: 10px;
+}
