@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { StatModel } from '../models/statModel';
+import { STATS } from '../mock-data/mock-stats';
+
 @Component({
   selector: 'app-mini-stats',
   templateUrl: './mini-stats.component.html',
-  styleUrls: ['./mini-stats.component.css']
+  styleUrls: ['./mini-stats.component.scss']
 })
 export class MiniStatsComponent implements OnInit {
 
-  stat: StatModel = {
-    id: 1,
-    title: 'Bitcoin',
-    amount: 1000.50
-  };
-
+  stats = STATS;
+  
   constructor() { }
 
   ngOnInit() {

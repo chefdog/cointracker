@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponent } from './header.component';
+import { MiniStatCoinsComponent } from './mini-stat-coins.component';
 
-describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+describe('MiniStatCoinsComponent', () => {
+  let component: MiniStatCoinsComponent;
+  let fixture: ComponentFixture<MiniStatCoinsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      declarations: [ MiniStatCoinsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(MiniStatCoinsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,17 +5,22 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppComponent } from './app.component';
 import { MiniStatsComponent } from './mini-stats/mini-stats.component';
-import { HeaderComponent } from './header/header.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { MiniStatCoinsComponent } from './mini-stat-coins/mini-stat-coins.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MiniStatsComponent,
-    HeaderComponent
+    PortfolioComponent,
+    MiniStatCoinsComponent,
+    DashboardComponent
   ],
   imports: [
-    BrowserModule, AngularFontAwesomeModule
+    BrowserModule, AngularFontAwesomeModule, AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

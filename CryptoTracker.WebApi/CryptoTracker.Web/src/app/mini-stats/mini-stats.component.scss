@@ -18,5 +18,13 @@
     -moz-border-radius: 100%;
     border-radius: 100%;
     float: left;
-    margin-right: 10px;
+    margin-right: 10px;    
+}
+.mini-stat-info {
+    font-size: 14px;
+    padding-top: 2px;
+}
+.mini-stat-info span {
+    display: block;
+    font-size: 24px;
 }
