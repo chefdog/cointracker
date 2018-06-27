@@ -25,4 +25,9 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\HttpService\" />
+    <Folder Include="Services\SocialMediaService\" />
+  </ItemGroup>
+
 </Project>

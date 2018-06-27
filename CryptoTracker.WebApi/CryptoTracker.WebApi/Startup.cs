@@ -33,6 +33,15 @@ namespace CryptoTracker.WebApi
 
             services.AddEntityFrameworkSqlServer().AddDbContext<CTDbContext>();
 
+            //MySQL support
+            //services.AddDbContextPool<CTDbContext>(
+            //    options => options.UseMySql("Server=localhost;Database=ef;User=root;Password=123456;", // replace with your Connection String
+            //        mysqlOptions =>
+            //        {
+            //            mysqlOptions.ServerVersion(new Version(5, 7, 17), ServerType.MySql); // replace with your Server Version and Type
+            //        }
+            //));
+
             services.AddScoped<IEntityMapper, CryptoTrackerEntityMapper>();
             services.AddScoped<IBusinessService<PortfolioDataTransferModel>, PortfolioBusinessService>();
             services.AddScoped<IBusinessService<HistoryLogDataTransferModel>, HistoryBusinessService>();

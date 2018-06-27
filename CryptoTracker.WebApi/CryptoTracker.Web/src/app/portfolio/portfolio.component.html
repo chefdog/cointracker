@@ -1,32 +1,61 @@
 <div class="col-md-9">
   <div class="card bg-white">
-    <div class="card-body">
-      <h4>{{portfolio.title}}</h4>
+    <div class="card-header">
+        <h4>{{portfolio.title}}</h4>
+        <p>Use the tab JavaScript plugin—include it individually or through the compiled bootstrap.js file—to extend our navigational tabs and pills to create tabbable panes of local content, even via dropdown menus.</p>
+        <div class="row tools">
+          <div class="col-md-1">
+            <label>Show</label>
+          </div>
+          <div class="col-md-2">
+            <select class="form-control">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+          <div class="col-md-3">&#160;</div>
+          <div class="col-md-6">
+          <ul class="pull-right">
+                <li>
+                    <button class="btn btn-primary"><fa name="fas fa-plus"></fa></button>
+                </li>
+                <li>
+                    <button class="btn btn-primary"><fa name="fas fa-edit"></fa></button>
+                </li>
+            </ul>                
+        </div>
+      </div>
+    </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>List price</th>
-            <th>Buy price</th>
-            <th>Sell price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of portfolio.items">
-            <td>{{item.id}}</td>
-            <td><i class="cc {{item.icon}}"></i> {{item.title}}</td>
-            <td>{{item.listPrice}}</td>
-            <td>{{item.buyPrice}}</td>
-            <td>{{item.sellPrice}}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="row card-body">     
+      <div class="row">
+        <div class="col-sm-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>List price</th>
+                <th>Buy price</th>
+                <th>Sell price</th> 
+                <th>Change</th>           
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of portfolios[0].items">
+                <td><i class="cc {{item.icon}}"></i> {{item.title}}</td>
+                <td>{{item.listPrice}}</td>
+                <td>{{item.buyPrice}}</td>
+                <td>{{item.sellPrice}}</td>
+                <td> +25% </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
 
     </div>
 
-
   </div>
-
 </div>

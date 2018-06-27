@@ -9,6 +9,7 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MiniStatCoinsComponent } from './mini-stat-coins/mini-stat-coins.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PortfolioService } from './portfolio.service';
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule, AngularFontAwesomeModule, AppRoutingModule
   ],
-  providers: [],
+  providers: [PortfolioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
