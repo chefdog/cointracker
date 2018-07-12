@@ -10,6 +10,7 @@ import { MiniStatCoinsComponent } from './mini-stat-coins/mini-stat-coins.compon
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PortfolioService } from './portfolio.service';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { PortfolioService } from './portfolio.service';
     MiniStatsComponent,
     PortfolioComponent,
     MiniStatCoinsComponent,
-    DashboardComponent
+    DashboardComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule, AngularFontAwesomeModule, AppRoutingModule

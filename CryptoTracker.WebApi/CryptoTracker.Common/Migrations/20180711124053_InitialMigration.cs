@@ -1,11 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
 namespace CryptoTracker.Common.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,17 +16,17 @@ namespace CryptoTracker.Common.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ArticleType = table.Column<string>(nullable: true),
-                    CoinId = table.Column<long>(nullable: false),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
-                    PortfolioId = table.Column<long>(nullable: false),
-                    Rating = table.Column<int>(nullable: false),
-                    RowGuid = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(nullable: true),
-                    UserId = table.Column<long>(nullable: false)
+                    RowGuid = table.Column<Guid>(nullable: false),
+                    Rating = table.Column<int>(nullable: false),
+                    ArticleType = table.Column<string>(nullable: true),
+                    UserId = table.Column<long>(nullable: false),
+                    CoinId = table.Column<long>(nullable: false),
+                    PortfolioId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,17 +39,17 @@ namespace CryptoTracker.Common.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BuyPrice = table.Column<decimal>(nullable: false),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
-                    ListPrice = table.Column<decimal>(nullable: false),
-                    Rating = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     RowGuid = table.Column<Guid>(nullable: false),
-                    SellPrice = table.Column<decimal>(nullable: false),
+                    Rating = table.Column<int>(nullable: false),
                     Tag = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true)
+                    ListPrice = table.Column<decimal>(nullable: false),
+                    BuyPrice = table.Column<decimal>(nullable: false),
+                    SellPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,15 +62,15 @@ namespace CryptoTracker.Common.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
-                    ParamKey = table.Column<string>(nullable: true),
-                    ParamValue = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     RowGuid = table.Column<Guid>(nullable: false),
-                    Title = table.Column<string>(nullable: true)
+                    Rating = table.Column<int>(nullable: false),
+                    ParamKey = table.Column<string>(nullable: true),
+                    ParamValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,13 +83,13 @@ namespace CryptoTracker.Common.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     RowGuid = table.Column<Guid>(nullable: false),
-                    Title = table.Column<string>(nullable: true)
+                    Rating = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -104,13 +102,13 @@ namespace CryptoTracker.Common.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     RowGuid = table.Column<Guid>(nullable: false),
-                    Title = table.Column<string>(nullable: true)
+                    Rating = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -123,15 +121,15 @@ namespace CryptoTracker.Common.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ArticleId = table.Column<long>(nullable: false),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
-                    Paragraph = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     RowGuid = table.Column<Guid>(nullable: false),
-                    Title = table.Column<string>(nullable: true)
+                    Rating = table.Column<int>(nullable: false),
+                    Paragraph = table.Column<string>(nullable: true),
+                    ArticleId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -144,17 +142,17 @@ namespace CryptoTracker.Common.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    IsPrivate = table.Column<bool>(nullable: false),
-                    IsShared = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
-                    RowGuid = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(nullable: true),
-                    UserId = table.Column<long>(nullable: false)
+                    RowGuid = table.Column<Guid>(nullable: false),
+                    Rating = table.Column<int>(nullable: false),
+                    IsPrivate = table.Column<bool>(nullable: false),
+                    IsShared = table.Column<bool>(nullable: false),
+                    UserId = table.Column<long>(nullable: false),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -167,16 +165,16 @@ namespace CryptoTracker.Common.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CoinModelId = table.Column<long>(nullable: false),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
-                    MiningModelId = table.Column<long>(nullable: false),
-                    PortfolioId = table.Column<long>(nullable: false),
-                    Rating = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     RowGuid = table.Column<Guid>(nullable: false),
-                    Title = table.Column<string>(nullable: true)
+                    Rating = table.Column<int>(nullable: false),
+                    CoinModelId = table.Column<long>(nullable: false),
+                    MiningModelId = table.Column<long>(nullable: false),
+                    PortfolioId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,17 +187,17 @@ namespace CryptoTracker.Common.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Created = table.Column<DateTime>(nullable: false),
-                    Email = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
                     LastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
                     RowGuid = table.Column<Guid>(nullable: false),
-                    Title = table.Column<string>(nullable: true)
+                    Rating = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

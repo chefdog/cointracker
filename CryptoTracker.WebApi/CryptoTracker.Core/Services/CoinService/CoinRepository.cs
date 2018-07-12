@@ -2,6 +2,7 @@
 using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.Models;
 using CryptoTracker.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace CryptoTracker.Core.Services.CoinService
 {
-    internal class CoinRepository : IRepository
+    internal class CoinRepository: IRepository
     {
         private CTDbContext _dbContext;
-        public CoinRepository(CTDbContext dbContext) {
+        public CoinRepository(CTDbContext dbContext)
+        {
             _dbContext = dbContext;
         }
 

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using ryptoTracker.Common;
 
 namespace CryptoTracker.WebApi
 {
@@ -31,17 +32,11 @@ namespace CryptoTracker.WebApi
         {
             services.AddMvc();
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<CTDbContext>();
+            //MS SQL
+            //services.AddEntityFrameworkSqlServer().AddDbContext<CTDbContext>();
 
-            //MySQL support
-            //services.AddDbContextPool<CTDbContext>(
-            //    options => options.UseMySql("Server=localhost;Database=ef;User=root;Password=123456;", // replace with your Connection String
-            //        mysqlOptions =>
-            //        {
-            //            mysqlOptions.ServerVersion(new Version(5, 7, 17), ServerType.MySql); // replace with your Server Version and Type
-            //        }
-            //));
-
+            //SQLite
+            services.AddEntityFrameworkSqlServer().AddDbContext<CTDbsqlIteContext>();
             services.AddScoped<IEntityMapper, CryptoTrackerEntityMapper>();
             services.AddScoped<IBusinessService<PortfolioDataTransferModel>, PortfolioBusinessService>();
             services.AddScoped<IBusinessService<HistoryLogDataTransferModel>, HistoryBusinessService>();
@@ -52,20 +47,20 @@ namespace CryptoTracker.WebApi
 
             services.AddSingleton<IConfiguration>(Configuration);
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options => {
-                        options.TokenValidationParameters =
-                             new TokenValidationParameters
-                             {
-                                 ValidateIssuer = true,
-                                 ValidateAudience = true,
-                                 ValidateLifetime = true,
-                                 ValidateIssuerSigningKey = true,
-                                 ValidIssuer = "Fiver.Security.Bearer",
-                                 ValidAudience = "Fiver.Security.Bearer",
-                                 IssuerSigningKey = JwtSecurityKey.Create("fiversecret ")
-                             };
-                    });
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //        .AddJwtBearer(options => {
+            //            options.TokenValidationParameters =
+            //                 new TokenValidationParameters
+            //                 {
+            //                     ValidateIssuer = true,
+            //                     ValidateAudience = true,
+            //                     ValidateLifetime = true,
+            //                     ValidateIssuerSigningKey = true,
+            //                     ValidIssuer = "Fiver.Security.Bearer",
+            //                     ValidAudience = "Fiver.Security.Bearer",
+            //                     IssuerSigningKey = JwtSecurityKey.Create("fiversecret ")
+            //                 };
+            //        });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

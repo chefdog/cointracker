@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StatModel } from '../models/statModel';
-import { STATS } from '../mock-data/mock-stats';
+import { StatisticsService } from '../statistics.service';
 
 @Component({
   selector: 'app-mini-stats',
@@ -9,11 +9,16 @@ import { STATS } from '../mock-data/mock-stats';
 })
 export class MiniStatsComponent implements OnInit {
 
-  stats = STATS;
+  stats: StatModel[];
   
-  constructor() { }
+  constructor(private statisticsService: StatisticsService) { }
 
   ngOnInit() {
+  }
+
+  getStatistics(): void{
+    this.statisticsService.getStats()
+    .subscribe(stats => this.stats = stats);
   }
 
 }
