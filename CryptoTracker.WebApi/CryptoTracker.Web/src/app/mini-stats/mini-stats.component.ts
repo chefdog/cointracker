@@ -14,6 +14,7 @@ export class MiniStatsComponent implements OnInit {
   constructor(private statisticsService: StatisticsService) { }
 
   ngOnInit() {
+    this.getStatistics();
   }
 
   getStatistics(): void{

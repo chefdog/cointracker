@@ -8,6 +8,7 @@ import { STATS } from './mock-data/mock-stats';
 export class StatisticsService {
 
   constructor(private messageService: MessageService) { }
+ 
 
   getStats(): Observable<StatModel[]> {
     this.messageService.add('HeroService: fetched heroes');
