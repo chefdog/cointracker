@@ -31,6 +31,11 @@ namespace CryptoTracker.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200"));
+            });
 
             //MS SQL
             //services.AddEntityFrameworkSqlServer().AddDbContext<CTDbContext>();
@@ -73,7 +78,7 @@ namespace CryptoTracker.WebApi
             else {
                 app.UseAuthentication();
             }
-
+            app.UseCors("AllowSpecificOrigin");
             app.UseMvc();
         }
     }

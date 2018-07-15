@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -25,7 +26,7 @@ import { StatisticsService } from './statistics.service';
     MessagesComponent
   ],
   imports: [
-    BrowserModule, AngularFontAwesomeModule, AppRoutingModule
+    BrowserModule, AngularFontAwesomeModule, AppRoutingModule, HttpClientModule
   ],
   providers: [PortfolioService, StatisticsService],
   bootstrap: [AppComponent]
