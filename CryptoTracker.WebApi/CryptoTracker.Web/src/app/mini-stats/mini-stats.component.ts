@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StatModel } from '../models/statModel';
-import { StatisticsService } from '../statistics.service';
+import { StatisticsService } from '../services/statistics.service';
 
 @Component({
   selector: 'app-mini-stats',

@@ -37,20 +37,18 @@ namespace CryptoTracker.WebApi
                     builder => builder.WithOrigins("http://localhost:4200"));
             });
 
+            services.AddOptions();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.AddSingleton<IConfiguration>(Configuration);
+
             //MS SQL
-            //services.AddEntityFrameworkSqlServer().AddDbContext<CTDbContext>();
+            services.AddEntityFrameworkSqlServer().AddDbContext<CTDbContext>();
 
             //SQLite
-            services.AddEntityFrameworkSqlServer().AddDbContext<CTDbsqlIteContext>();
+            //services.AddEntityFrameworkSqlServer().AddDbContext<CTDbsqlIteContext>();
             services.AddScoped<IEntityMapper, CryptoTrackerEntityMapper>();
             services.AddScoped<IBusinessService<PortfolioDataTransferModel>, PortfolioBusinessService>();
             services.AddScoped<IBusinessService<HistoryLogDataTransferModel>, HistoryBusinessService>();
-
-            services.AddOptions();
-
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-
-            services.AddSingleton<IConfiguration>(Configuration);
 
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //        .AddJwtBearer(options => {

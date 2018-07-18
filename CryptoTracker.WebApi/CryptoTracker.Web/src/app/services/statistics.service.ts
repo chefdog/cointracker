@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
-import { StatModel } from './models/StatModel';
-import { STATS } from './mock-data/mock-stats';
+import { StatModel } from '../models/StatModel';
+import { STATS } from '../mock-data/mock-stats';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -45,6 +45,6 @@ export class StatisticsService {
   }
   
   private log(message: string) {
-    this.messageService.add('StatisticsService: $(message)');
+    this.messageService.add('StatisticsService: ${message}');
   }
 }

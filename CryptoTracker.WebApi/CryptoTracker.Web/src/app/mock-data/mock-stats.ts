@@ -1,4 +1,4 @@
-import { StatModel } from '../models/StatModel';
+import { StatModel } from '../models/statModel';
 
 export const STATS: StatModel[] = [
     { id: 1, title: 'Bitcoin', amount: 1000.50, currency: '$', total: 50.000, icon: "BTC" },

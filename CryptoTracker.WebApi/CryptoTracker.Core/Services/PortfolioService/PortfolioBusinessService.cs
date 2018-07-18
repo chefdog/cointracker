@@ -16,7 +16,7 @@ namespace CryptoTracker.Core.Services.PortfolioService
         private IRepository _itemRepos;
         private IBusinessService<CoinDataTransferModel> _coinBusinessService;
 
-        public PortfolioBusinessService(AppSettings appSettings, CTDbContext dbContext, IBusinessService<CoinDataTransferModel> coinBusinessService) {
+        public PortfolioBusinessService(CTDbContext dbContext, IBusinessService<CoinDataTransferModel> coinBusinessService) {
             _repos = new PortfolioRepository(dbContext);
             _itemRepos = new PortfolioItemRepository(dbContext);
             _coinBusinessService = coinBusinessService;
@@ -30,7 +30,7 @@ namespace CryptoTracker.Core.Services.PortfolioService
                 var model = dto.ToModel();
                 var portfolio = await _repos.GetAsync(model) as PortfolioModel;
                 if (portfolio != null) {
-                    throw new ValidationException("Entity already excist");
+                    throw new ValidationException("Entity already exist");
                 }
                 
                 portfolio = await _repos.AddAsync(model) as PortfolioModel;
@@ -50,9 +50,20 @@ namespace CryptoTracker.Core.Services.PortfolioService
             return result;
         }
 
-        public Task<PortfolioDataTransferModel> Find(PortfolioDataTransferModel dto)
+        public async Task<PortfolioDataTransferModel> Find(PortfolioDataTransferModel dto)
         {
-            throw new NotImplementedException();
+            PortfolioDataTransferModel result = new PortfolioDataTransferModel();
+            try {
+                var model = dto.ToModel();
+                var portfolio = await _repos.GetAsync(model) as PortfolioModel;
+                if(portfolio==null) Exceptions.ExceptionHandler.HandleBusinessServiceException("Portfolio could not be located based on the search parameters");
+                return portfolio.ToDto();
+            }
+            catch (Exception ex)
+            {
+                Exceptions.ExceptionHandler.HandleBusinessServiceException(ex);
+            }
+            return result;
         }
 
         public Task<List<PortfolioDataTransferModel>> GetMany(int start, int skip, int max)

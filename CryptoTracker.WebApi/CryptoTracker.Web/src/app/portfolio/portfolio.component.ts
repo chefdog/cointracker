@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PortfolioModel } from '../models/PortfolioModel';
 import { PortfolioItemModel } from '../models/PortfolioItemModel';
-import { PortfolioService } from '../portfolio.service';
+import { PortfolioService } from '../services/portfolio.service';
 
 @Component({
   selector: 'app-portfolio',

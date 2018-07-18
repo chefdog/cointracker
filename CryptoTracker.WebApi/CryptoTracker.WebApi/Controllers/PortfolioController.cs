@@ -39,7 +39,32 @@ namespace CryptoTracker.WebApi.Controllers
             return response.ToHttpResponse();
         }
 
-        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var response = new SingleModelResponse<PortfolioDataTransferModel>();
+            var request = new PortfolioDataTransferModel { Id = id, UserId = 1 };
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var entity = await _portfolioBusinessService.Find(request);
+                    response.Model = entity;
+                    response.Message = "The data was found";
+                }
+                var messages = from v in ModelState.Values
+                               from e in v.Errors
+                               select e.ErrorMessage;
+                response.DidError = true;
+                response.ErrorMessage = string.Join(".", messages);
+            }
+            catch (Exception ex)
+            {
+                response.DidError = true;
+                response.ErrorMessage = ex.ToString();
+            }
+            return response.ToHttpResponse();
+        }
 
         protected override void Dispose(Boolean disposing)
         {

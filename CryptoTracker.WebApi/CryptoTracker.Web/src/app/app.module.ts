@@ -12,8 +12,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
 
-import { PortfolioService } from './portfolio.service';
-import { StatisticsService } from './statistics.service';
+import { MessageService } from './services/message.service';
+import { PortfolioService } from './services/portfolio.service';
+import { StatisticsService } from './services/statistics.service';
+
 
 
 @NgModule({
@@ -28,7 +30,7 @@ import { StatisticsService } from './statistics.service';
   imports: [
     BrowserModule, AngularFontAwesomeModule, AppRoutingModule, HttpClientModule
   ],
-  providers: [PortfolioService, StatisticsService],
+  providers: [PortfolioService, StatisticsService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

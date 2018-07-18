@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PORTFOLIOS } from '../mock-data/mock-portfolio';
+import { PortfolioService } from '../services/portfolio.service';
 import { PortfolioModel } from '../models/PortfolioModel';
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -8,13 +10,23 @@ import { PortfolioModel } from '../models/PortfolioModel';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private portfolioService: PortfolioService) { }
 
-  portfolios = PORTFOLIOS;
+  portfolios: PortfolioModel[];
   selectedPortfolio: PortfolioModel;
 
   ngOnInit() {
-    this.selectedPortfolio = this.portfolios[0];
+    
   }
 
+  getPortfolios(): void{
+    this.portfolioService.getPortfolios()
+    .subscribe(portfolios => this.portfolios = portfolios);
+  }
+
+  getPortfolio(id: number): void{
+    id = 1;
+    this.portfolioService.getPortfolio(id)
+    .subscribe(portfolio => this.selectedPortfolio = portfolio);
+  }
 }
