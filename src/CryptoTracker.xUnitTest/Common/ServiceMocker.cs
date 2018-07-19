@@ -41,7 +41,7 @@ namespace CryptoTracker.xUnitTest.Common
         public IBusinessService<PortfolioDataTransferModel> GetPortfolioService()
         {
             var coinService = GetCoinService();
-            return new PortfolioBusinessService(_settings.Value, _dbContext, coinService);
+            return new PortfolioBusinessService(_dbContext, coinService);
         }
 
         public IBusinessService<HistoryLogDataTransferModel> GetHistoryLogRepository()
