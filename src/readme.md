@@ -19,3 +19,7 @@ and next: "Update-Database"
 3.2. SQLite (filebased, runs under linux, windows)
 run the command : "Add-Migration InitialCreate -project CryptoTracker.Common -Context CTDbsqliteContext -OutputDir Migrations\SqliteMigrations"
 and next: "Update-Database InitialCreate"
+
+Appendix
+100.1 Depency injection issues
+When injection appsettings, make sur you inject IOptions<AppSettings> in your services.

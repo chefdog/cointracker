@@ -8,6 +8,7 @@ using CryptoTracker.Core.DataTransferModels;
 using CryptoTracker.Core.Models;
 using CryptoTracker.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace CryptoTracker.Core.Services.HistoryService
 {
@@ -15,7 +16,7 @@ namespace CryptoTracker.Core.Services.HistoryService
     {
         private IRepository _repos;
         
-        public HistoryBusinessService(AppSettings appSettings, CTDbContext dbContext) {
+        public HistoryBusinessService(IOptions<AppSettings> appSettings, CTDbContext dbContext) {
             _repos = new HistoryLogRepository(dbContext);
         }
 

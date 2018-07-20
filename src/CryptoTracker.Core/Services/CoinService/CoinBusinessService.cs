@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CryptoTracker.Core.Services.HistoryService;
 using CryptoTracker.DataAccess.Enums;
 using CryptoTracker.Core.Models;
 using CryptoTracker.Core.Services.Helpers;
+using Microsoft.Extensions.Options;
 
 namespace CryptoTracker.Core.Services.CoinService
 {
@@ -21,12 +21,10 @@ namespace CryptoTracker.Core.Services.CoinService
         private IRepository _coinRepos;
         private IBusinessService<HistoryLogDataTransferModel> _historyService;
         #endregion
-        public CoinBusinessService(AppSettings appSettings, 
-            CTDbContext dbContext, IBusinessService<HistoryLogDataTransferModel> historyService) {
-            _exchangeRepos = new ExchangeRepository(appSettings.CoinMarketCap.BaseAddress, appSettings.CoinMarketCap.Api, appSettings.CoinMarketCap.QueryParams);
+        public CoinBusinessService(IOptions<AppSettings> appSettings, CTDbContext dbContext, IBusinessService<HistoryLogDataTransferModel> historyService) {
+            _exchangeRepos = new ExchangeRepository(appSettings.Value.CoinMarketCap.BaseAddress, appSettings.Value.CoinMarketCap.Api, appSettings.Value.CoinMarketCap.QueryParams);
             _coinRepos = new CoinRepository(dbContext);
             _historyService = historyService;
-            _appSettings = appSettings;
         }
 
         public async Task<CoinDataTransferModel> Create(CoinDataTransferModel dto)
