@@ -2,6 +2,7 @@
 using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.DataTransferModels;
 using CryptoTracker.Core.ModelMappers;
+using CryptoTracker.Core.Services.CoinService;
 using CryptoTracker.Core.Services.HistoryService;
 using CryptoTracker.Core.Services.PortfolioService;
 using CryptoTracker.WebApi.Security;
@@ -47,6 +48,7 @@ namespace CryptoTracker.WebApi
             //SQLite
             //services.AddEntityFrameworkSqlServer().AddDbContext<CTDbsqlIteContext>();
             services.AddScoped<IEntityMapper, CryptoTrackerEntityMapper>();
+            services.AddScoped<IBusinessService<CoinDataTransferModel>, CoinBusinessService>();
             services.AddScoped<IBusinessService<PortfolioDataTransferModel>, PortfolioBusinessService>();
             services.AddScoped<IBusinessService<HistoryLogDataTransferModel>, HistoryBusinessService>();
 
