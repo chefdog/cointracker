@@ -131,6 +131,11 @@ namespace CryptoTracker.Core.Services.HistoryService
         {
             throw new NotImplementedException();
         }
+
+        public Task<IModel> GetByIdAsync(long id)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

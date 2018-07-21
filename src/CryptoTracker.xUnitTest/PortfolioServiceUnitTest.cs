@@ -11,16 +11,18 @@ namespace CryptoTracker.xUnitTest
     public class PortfolioUnitTest
     {
         private ServiceMocker _serviceMocker;
-        public PortfolioUnitTest() {
+        public PortfolioUnitTest()
+        {
             _serviceMocker = new ServiceMocker();
         }
 
         [Fact]
         public async Task TestCreateNew()
         {
-            PortfolioDataTransferModel dto = new PortfolioDataTransferModel {
+            PortfolioDataTransferModel dto = new PortfolioDataTransferModel
+            {
                 UserId = 1,
-                Title = "Test portfolio 1" + DateTime.Now.ToUniversalTime(),
+                Title = "Test portfolio create new" + DateTime.Now.ToUniversalTime(),
                 Description = "Test portfolio description"
             };
 
@@ -28,7 +30,7 @@ namespace CryptoTracker.xUnitTest
             var result = await service.Create(dto);
 
             service.Dispose();
-            Assert.NotNull(result);            
+            Assert.NotNull(result);
         }
 
         [Fact]
@@ -37,7 +39,7 @@ namespace CryptoTracker.xUnitTest
             PortfolioDataTransferModel dto = new PortfolioDataTransferModel
             {
                 UserId = 1,
-                Title = "Test portfolio 2" + DateTime.Now.ToUniversalTime(),
+                Title = "Test portfolio with coins" + DateTime.Now.ToUniversalTime(),
                 Description = "Test portfolio with coins"
             };
 
@@ -67,42 +69,72 @@ namespace CryptoTracker.xUnitTest
         }
 
         [Fact]
-        public async Task TestUpdatePortfolio() {
+        public async Task TestSelect()
+        {
             PortfolioDataTransferModel dto = new PortfolioDataTransferModel
             {
-                UserId = 1,
-                Title = "Test portfolio 1",
-                Description = "Test portfolio description",
-                Id = 1
+                UserId = 1, Id = 1
             };
 
-            PortfolioItemDataTransferModel item = new PortfolioItemDataTransferModel
-            {
-                 CoinTag = "BTC",
-                 ListPrice = 1000m,
-                 Title = "Bitcoin",
-                 LastModified = DateTime.Now,
-                 LastModifiedBy = "Marco",
-                 Created = DateTime.Now
-            };
-            dto.Items.Add(item);
-
-            item = new PortfolioItemDataTransferModel
-            {
-                CoinTag = "LTC",
-                ListPrice = 159.68m,
-                Title = "Litecoin",
-                LastModified = DateTime.Now,
-                LastModifiedBy = "Marco",
-                Created = DateTime.Now
-            };
-            dto.Items.Add(item);
-
-            var portfolioService = _serviceMocker.GetPortfolioService();
-            var portfolio = await portfolioService.Update(dto);
-
-            portfolioService.Dispose();
-            Assert.NotNull(portfolio);
+            var service = _serviceMocker.GetPortfolioService();
+            var result = await service.Find(dto);
+            
+            service.Dispose();
+            Assert.NotNull(result);
+            Assert.NotEmpty(result.Items);
         }
+
+        //[Fact]
+        //public async Task TestUpdatePortfolio()
+        //{
+        //    PortfolioDataTransferModel dto = new PortfolioDataTransferModel
+        //    {
+        //        UserId = 1,
+        //        Title = "Test portfolio update",
+        //        Description = "Test portfolio description update",
+        //        Id = 1
+        //    };
+
+        //    PortfolioItemDataTransferModel item = new PortfolioItemDataTransferModel
+        //    {
+        //        CoinTag = "BTC",
+        //        ListPrice = 1000m,
+        //        Title = "Bitcoin",
+        //        LastModified = DateTime.Now,
+        //        LastModifiedBy = "Marco",
+        //        Created = DateTime.Now
+        //    };
+        //    dto.Items.Add(item);
+
+        //    item = new PortfolioItemDataTransferModel
+        //    {
+        //        CoinTag = "LTC",
+        //        ListPrice = 159.68m,
+        //        Title = "Litecoin",
+        //        LastModified = DateTime.Now,
+        //        LastModifiedBy = "Marco",
+        //        Created = DateTime.Now
+        //    };
+        //    dto.Items.Add(item);
+
+        //    var portfolioService = _serviceMocker.GetPortfolioService();
+        //    var portfolio = await portfolioService.Update(dto);
+
+        //    portfolioService.Dispose();
+        //    Assert.NotNull(portfolio);
+        //}
+
+        //[Fact]
+        //public async Task DeletePortfolio()
+        //{
+        //    var service = _serviceMocker.GetPortfolioService();
+        //    var result = await service.GetMany(0, 0, 25);
+        //    Assert.NotNull(result);
+
+        //    var dto = result.Last();
+        //    await service.Remove(dto);
+        //    service.Dispose();
+            
+        //}
     }
 }

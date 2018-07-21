@@ -26,7 +26,7 @@ namespace CryptoTracker.Core.DataTransferModels
                 LastModified = dto.LastModified,
                 LastModifiedBy = dto.LastModifiedBy,
                 Rating = dto.Rating,
-                Title = dto.Title,
+                Title = dto.Title
             };
         }
     }

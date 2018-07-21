@@ -12,6 +12,8 @@ namespace CryptoTracker.Common.Interfaces
 
         Task<IModel> GetAsync(IModel entity);
 
+        Task<IModel> GetByIdAsync(Int64 id);
+
         Task<IModel> AddAsync(IModel entity);
 
         Task<List<IModel>> AddRangeAsync(List<IModel> data);

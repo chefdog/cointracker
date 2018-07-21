@@ -40,8 +40,9 @@ namespace CryptoTracker.Core.Services.PortfolioService
 
                 if (result.Items.Any())
                 {
-                    var items = result.Items.Select(i => i.ToModel()).ToList<IModel>();
-                    await _itemRepos.AddRangeAsync(items);
+                    var items = result.Items.Select(i => i.ToModel());
+                    var updatedItems = items.Select(i => { i.PortfolioId = portfolio.Id; return i; }).ToList<IModel>();
+                    await _itemRepos.AddRangeAsync(updatedItems);
                 }
                 return result;
             }
@@ -58,7 +59,12 @@ namespace CryptoTracker.Core.Services.PortfolioService
                 var model = dto.ToModel();
                 var portfolio = await _repos.GetAsync(model) as PortfolioModel;
                 if(portfolio==null) Exceptions.ExceptionHandler.HandleBusinessServiceException("Portfolio could not be located based on the search parameters");
-                return portfolio.ToDto();
+
+                var items = _itemRepos.GetMany(0, 100, string.Empty).Cast<PortfolioItemModel>();
+                
+                var p = portfolio.ToDto();
+                p.Items = items.Where(x => x.PortfolioId.Equals(p.Id)).Select(i => i.ToDto()).ToList();
+                return p;
             }
             catch (Exception ex)
             {

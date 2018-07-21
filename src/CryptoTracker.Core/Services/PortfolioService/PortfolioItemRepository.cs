@@ -97,11 +97,23 @@ namespace CryptoTracker.Core.Services.PortfolioService
             return entity;
         }
 
+        public async Task<IModel> GetByIdAsync(long id)
+        {
+            var model = await _dbContext.Set<PortfolioItemModel>().FindAsync(id);
+            return model as IModel;
+        }
+
         public IQueryable<IModel> GetMany(int pageSize, int pageNumber, string name)
         {
             try
             {
-                var result = _dbContext.Set<PortfolioItemModel>().Take(pageSize);
+                IQueryable<PortfolioItemModel> result = null;
+                if (!string.IsNullOrEmpty(name)) {
+                    var query = _dbContext.Find(typeof(PortfolioItemModel), new object[] { name });
+                    result = _dbContext.Set<PortfolioItemModel>().Take(pageSize);
+                    return result.Cast<IModel>();
+                }                
+                result = _dbContext.Set<PortfolioItemModel>().Take(pageSize);
                 return result.Cast<IModel>();
             }
             catch (Exception ex)
@@ -163,6 +175,8 @@ namespace CryptoTracker.Core.Services.PortfolioService
         }
 
         
+
+
         #endregion
     }
 }

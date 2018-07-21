@@ -77,7 +77,7 @@ namespace CryptoTracker.Core.Services.CoinService
             try
             {
                 var model = entity as CoinModel;
-                var result = await _dbContext.Set<CoinModel>().FindAsync(model.Id);                
+                var result = await _dbContext.Set<CoinModel>().FindAsync(model.Id);
                 return result;
             }
             catch (Exception ex)
@@ -150,6 +150,11 @@ namespace CryptoTracker.Core.Services.CoinService
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
+        }
+
+        public Task<IModel> GetByIdAsync(long id)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

@@ -51,16 +51,18 @@ namespace CryptoTracker.Core.Services.PortfolioService
             return entity;
         }
 
+        public async Task<IModel> GetByIdAsync(Int64 id)
+        {
+            var result = await _dbContext.Set<PortfolioModel>().FindAsync(id);
+            return result as IModel;
+        }
+
         public async Task<IModel> GetAsync(IModel entity)
         {
             try
             {
                 PortfolioModel model = entity as PortfolioModel;
                 PortfolioModel result = null;
-                if (model.Id > 0)
-                {
-                    result = await _dbContext.Set<PortfolioModel>().FindAsync(model.Id);
-                }
                 if (!String.IsNullOrEmpty(model.Title) && result == null)
                 {
                     result = _dbContext.Set<PortfolioModel>().Where(p => p.Title == model.Title).FirstOrDefault();

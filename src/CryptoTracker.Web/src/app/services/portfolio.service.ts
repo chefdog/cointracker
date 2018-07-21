@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class PortfolioService {
 
-  private webapi = 'http://localhost:52187/api/portfolio/';
+  private webapi = 'http://localhost:52187/api/portfolio';
 
   constructor(private messageService: MessageService,
     private http: HttpClient) { }
@@ -31,8 +31,9 @@ export class PortfolioService {
       );    
   }
 /** get portolio by id */
-  getPortfolio(id: number): Observable<PortfolioModel> {    
-    return this.http.get<PortfolioModel>(this.webapi + id).pipe(
+  getPortfolio(id: number): Observable<PortfolioModel> {  
+    
+    return this.http.get<PortfolioModel>(`${this.webapi}/${id}`).pipe(
       tap(_ => this.log('fetched portfolio id=${id}')),
       catchError(this.handleError<PortfolioModel>('getPortfolio id=${id}'))
     );
