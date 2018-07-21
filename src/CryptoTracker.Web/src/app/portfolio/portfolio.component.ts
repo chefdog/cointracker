@@ -19,7 +19,10 @@ export class PortfolioComponent implements OnInit {
   }
 
   getPortfolios(): void {
-    this.portfolioService.getPortfolios().subscribe(portfolios => this.portfolios = portfolios);
+    this.portfolioService.getPortfolios().subscribe(portfolios => this.portfolios = portfolios);    
+  }
+
+  getPortfolio(): void{
     
   }
 }

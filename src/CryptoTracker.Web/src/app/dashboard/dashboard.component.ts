@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   selectedPortfolio: PortfolioModel;
 
   ngOnInit() {
-    
+    this.getPortfolio(1);
   }
 
   getPortfolios(): void{
@@ -25,7 +25,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getPortfolio(id: number): void{
-    id = 1;
     this.portfolioService.getPortfolio(id)
     .subscribe(portfolio => this.selectedPortfolio = portfolio);
   }

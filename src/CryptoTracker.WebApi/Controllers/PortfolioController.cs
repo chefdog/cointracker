@@ -51,6 +51,7 @@ namespace CryptoTracker.WebApi.Controllers
                     var entity = await _portfolioBusinessService.Find(request);
                     response.Model = entity;
                     response.Message = "The data was found";
+                    response.ToHttpResponse();
                 }
                 var messages = from v in ModelState.Values
                                from e in v.Errors

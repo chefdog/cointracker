@@ -2,6 +2,7 @@ using CryptoTracker.Core.DataTransferModels;
 using CryptoTracker.Exceptions;
 using CryptoTracker.xUnitTest.Common;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -31,24 +32,38 @@ namespace CryptoTracker.xUnitTest
         }
 
         [Fact]
-        public async Task TestAlreadyExist()
+        public async Task TestCreateNewWithCoins()
         {
-            try
+            PortfolioDataTransferModel dto = new PortfolioDataTransferModel
             {
-                PortfolioDataTransferModel dto = new PortfolioDataTransferModel
-                {
-                    UserId = 1,
-                    Title = "Test portfolio 1",
-                    Description = "Test portfolio description"
-                };
+                UserId = 1,
+                Title = "Test portfolio 2" + DateTime.Now.ToUniversalTime(),
+                Description = "Test portfolio with coins"
+            };
 
-                var service = _serviceMocker.GetPortfolioService();
-                var result = await service.Create(dto);
-                service.Dispose();
-            }
-            catch (ValidationException vex) {
-                Assert.Contains("Entity already excist", vex.Message);
-            }
+            var coinsService = _serviceMocker.GetCoinService();
+            var data = await coinsService.GetMany(0, 0, 1000);
+            Assert.NotNull(data);
+            Assert.NotEmpty(data);
+            coinsService.Dispose();
+
+            dto.Items = (from c in data
+                         select new PortfolioItemDataTransferModel
+                         {
+                             CoinId = c.Id,
+                             Created = c.Created,
+                             CoinTag = c.Tag,
+                             Title = c.Title,
+                             ListPrice = c.ListPrice,
+                             LastModified = c.LastModified,
+                             LastModifiedBy = c.LastModifiedBy,
+                             Rating = c.Rating
+                         }).ToList();
+
+            var service = _serviceMocker.GetPortfolioService();
+            var result = await service.Create(dto);
+            service.Dispose();
+            Assert.NotNull(result);
         }
 
         [Fact]
