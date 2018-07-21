@@ -14,7 +14,7 @@ After you've defined your initial model, it's time to create the database. To do
 
 3.1. SQL Server (Azure)
 run the command : "Add-Migration InitialCreate -project CryptoTracker.Common -Context CTDbContext -OutputDir Migrations\SqlServerMigrations"
-and next: "Update-Database"
+and next: "Update-Database InitialCreate"
 
 3.2. SQLite (filebased, runs under linux, windows)
 run the command : "Add-Migration InitialCreate -project CryptoTracker.Common -Context CTDbsqliteContext -OutputDir Migrations\SqliteMigrations"
@@ -23,3 +23,4 @@ and next: "Update-Database InitialCreate"
 Appendix
 100.1 Depency injection issues
 When injection appsettings, make sur you inject IOptions<AppSettings> in your services.
+Another way of dealing with your appsettings.json file is https://csharp.christiannagel.com/2016/08/16/diwithconfiguration/

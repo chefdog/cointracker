@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CryptoTracker.Common.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(CTDbContext))]
-    [Migration("20180719174351_InitialCreate")]
+    [Migration("20180720111041_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -25,6 +25,7 @@ namespace CryptoTracker.Core.Services.CoinService
             _exchangeRepos = new ExchangeRepository(appSettings.Value.CoinMarketCap.BaseAddress, appSettings.Value.CoinMarketCap.Api, appSettings.Value.CoinMarketCap.QueryParams);
             _coinRepos = new CoinRepository(dbContext);
             _historyService = historyService;
+            _appSettings = appSettings.Value;
         }
 
         public async Task<CoinDataTransferModel> Create(CoinDataTransferModel dto)

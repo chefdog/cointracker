@@ -30,12 +30,12 @@ namespace CryptoTracker.xUnitTest.Common
             });
 
             _dbContext = new CTDbContext(_settings, new CryptoTrackerEntityMapper());
-            _historyBusinessService = new HistoryBusinessService(_settings.Value, _dbContext);
+            _historyBusinessService = new HistoryBusinessService(_settings, _dbContext);
         }
 
         public IBusinessService<CoinDataTransferModel> GetCoinService()
         {
-            return new CoinBusinessService(_settings.Value, _dbContext, _historyBusinessService);
+            return new CoinBusinessService(_settings, _dbContext, _historyBusinessService);
         }
 
         public IBusinessService<PortfolioDataTransferModel> GetPortfolioService()

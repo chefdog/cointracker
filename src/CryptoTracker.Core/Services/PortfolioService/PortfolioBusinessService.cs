@@ -17,6 +17,7 @@ namespace CryptoTracker.Core.Services.PortfolioService
         private IBusinessService<CoinDataTransferModel> _coinBusinessService;
 
         public PortfolioBusinessService(CTDbContext dbContext, IBusinessService<CoinDataTransferModel> coinBusinessService) {
+
             _repos = new PortfolioRepository(dbContext);
             _itemRepos = new PortfolioItemRepository(dbContext);
             _coinBusinessService = coinBusinessService;
