@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getPortfolio(24);
-    console.log(JSON.stringify(this.selectedPortfolio));
+    
   }
 
   getPortfolios(): void{

@@ -16,7 +16,7 @@ import { MessageService } from './services/message.service';
 import { PortfolioService } from './services/portfolio.service';
 import { StatisticsService } from './services/statistics.service';
 
-
+import { httpInterceptorProviders } from './http-interceptors/index';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { StatisticsService } from './services/statistics.service';
   imports: [
     BrowserModule, AngularFontAwesomeModule, AppRoutingModule, HttpClientModule
   ],
-  providers: [PortfolioService, StatisticsService, MessageService],
+  providers: [PortfolioService, StatisticsService, MessageService, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
