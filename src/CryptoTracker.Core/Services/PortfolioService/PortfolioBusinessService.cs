@@ -15,6 +15,7 @@ namespace CryptoTracker.Core.Services.PortfolioService
         private IRepository _repos;
         private IRepository _itemRepos;
         private IBusinessService<CoinDataTransferModel> _coinBusinessService;
+        private int pageSize = 100;
 
         public PortfolioBusinessService(CTDbContext dbContext, IBusinessService<CoinDataTransferModel> coinBusinessService) {
 
@@ -55,14 +56,23 @@ namespace CryptoTracker.Core.Services.PortfolioService
         public async Task<PortfolioDataTransferModel> Find(PortfolioDataTransferModel dto)
         {
             PortfolioDataTransferModel result = new PortfolioDataTransferModel();
+            PortfolioModel portfolio = null;
             try {
                 var model = dto.ToModel();
-                var portfolio = await _repos.GetAsync(model) as PortfolioModel;
+                if(model.UserId <=0) Exceptions.ExceptionHandler.HandleBusinessServiceException("Portfolio could not be located based on the search parameters");
+
+                if (!string.IsNullOrEmpty(model.Title)) {
+                    portfolio = await _repos.GetAsync(model) as PortfolioModel;
+                }
+
+                if (model.Id > 0 && portfolio==null) {
+                    portfolio = await _repos.GetByIdAsync(model.Id) as PortfolioModel;
+                }
+                                
                 if(portfolio==null) Exceptions.ExceptionHandler.HandleBusinessServiceException("Portfolio could not be located based on the search parameters");
 
-                var items = _itemRepos.GetMany(0, 100, string.Empty).Cast<PortfolioItemModel>();
-                
                 var p = portfolio.ToDto();
+                var items = _itemRepos.GetMany(pageSize, 0, portfolio.Id).Cast<PortfolioItemModel>();                
                 p.Items = items.Where(x => x.PortfolioId.Equals(p.Id)).Select(i => i.ToDto()).ToList();
                 return p;
             }

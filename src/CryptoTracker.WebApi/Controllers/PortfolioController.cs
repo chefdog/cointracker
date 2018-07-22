@@ -52,12 +52,15 @@ namespace CryptoTracker.WebApi.Controllers
                     response.Model = entity;
                     response.Message = "The data was found";
                     response.ToHttpResponse();
+                    return response.ToHttpResponse();
                 }
+
                 var messages = from v in ModelState.Values
                                from e in v.Errors
                                select e.ErrorMessage;
                 response.DidError = true;
                 response.ErrorMessage = string.Join(".", messages);
+                return response.ToHttpResponse();
             }
             catch (Exception ex)
             {

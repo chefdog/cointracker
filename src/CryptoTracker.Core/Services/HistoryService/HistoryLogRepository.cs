@@ -74,7 +74,7 @@ namespace CryptoTracker.Core.Services.HistoryService
             return entity;
         }
 
-        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, string name)
+        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, object queryParam)
         {
             try
             {

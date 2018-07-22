@@ -31,8 +31,7 @@ export class PortfolioService {
       );    
   }
 /** get portolio by id */
-  getPortfolio(id: number): Observable<PortfolioModel> {  
-    
+  getPortfolio(id: number): Observable<PortfolioModel> {      
     return this.http.get<PortfolioModel>(`${this.webapi}/${id}`).pipe(
       tap(_ => this.log('fetched portfolio id=${id}')),
       catchError(this.handleError<PortfolioModel>('getPortfolio id=${id}'))

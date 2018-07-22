@@ -54,7 +54,7 @@ namespace CryptoTracker.Core.Services.CoinService
             throw new NotImplementedException();
         }
 
-        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, string name)
+        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, object name)
         {
             IQueryable<ExchangeModel> result = null;
             try

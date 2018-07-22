@@ -87,7 +87,7 @@ namespace CryptoTracker.Core.Services.CoinService
             return null;
         }
 
-        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, string name)
+        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, object name)
         {
             try
             {

@@ -73,7 +73,7 @@ namespace CryptoTracker.xUnitTest
         {
             PortfolioDataTransferModel dto = new PortfolioDataTransferModel
             {
-                UserId = 1, Id = 1
+                UserId = 1, Id = 24
             };
 
             var service = _serviceMocker.GetPortfolioService();

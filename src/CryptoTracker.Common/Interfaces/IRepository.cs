@@ -8,7 +8,7 @@ namespace CryptoTracker.Common.Interfaces
 {
     public interface IRepository : IDisposable
     {
-        IQueryable<IModel> GetMany(Int32 pageSize, Int32 pageNumber, String name);
+        IQueryable<IModel> GetMany(Int32 pageSize, Int32 pageNumber, object queryParam);
 
         Task<IModel> GetAsync(IModel entity);
 

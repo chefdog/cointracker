@@ -62,11 +62,7 @@ namespace CryptoTracker.Core.Services.PortfolioService
             try
             {
                 PortfolioModel model = entity as PortfolioModel;
-                PortfolioModel result = null;
-                if (!String.IsNullOrEmpty(model.Title) && result == null)
-                {
-                    result = _dbContext.Set<PortfolioModel>().Where(p => p.Title == model.Title).FirstOrDefault();
-                }
+                var result = _dbContext.Set<PortfolioModel>().Where(p => p.Title == model.Title).FirstOrDefault();
                 return result as IModel;
             }
             catch (Exception ex)
@@ -76,7 +72,7 @@ namespace CryptoTracker.Core.Services.PortfolioService
             return entity;
         }
 
-        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, string name)
+        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, object queryParam)
         {
             try
             {

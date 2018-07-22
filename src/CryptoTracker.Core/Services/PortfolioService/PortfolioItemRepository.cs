@@ -103,16 +103,16 @@ namespace CryptoTracker.Core.Services.PortfolioService
             return model as IModel;
         }
 
-        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, string name)
+        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, object queryParam)
         {
             try
             {
                 IQueryable<PortfolioItemModel> result = null;
-                if (!string.IsNullOrEmpty(name)) {
-                    var query = _dbContext.Find(typeof(PortfolioItemModel), new object[] { name });
-                    result = _dbContext.Set<PortfolioItemModel>().Take(pageSize);
+                var portfolioId = (Int64) queryParam;
+                if (portfolioId > 0) {
+                    result = _dbContext.Set<PortfolioItemModel>().Where(i=> i.PortfolioId.Equals(portfolioId)).Take(pageSize);
                     return result.Cast<IModel>();
-                }                
+                }
                 result = _dbContext.Set<PortfolioItemModel>().Take(pageSize);
                 return result.Cast<IModel>();
             }
