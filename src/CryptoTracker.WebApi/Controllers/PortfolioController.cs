@@ -42,32 +42,24 @@ namespace CryptoTracker.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var response = new SingleModelResponse<PortfolioDataTransferModel>();
             var request = new PortfolioDataTransferModel { Id = id, UserId = 1 };
             try
             {
                 if (ModelState.IsValid)
                 {
                     var entity = await _portfolioBusinessService.Find(request);
-                    response.Model = entity;
-                    response.Message = "The data was found";
-                    response.ToHttpResponse();
-                    return response.ToHttpResponse();
+                    return Ok(entity);
                 }
-
-                var messages = from v in ModelState.Values
-                               from e in v.Errors
-                               select e.ErrorMessage;
-                response.DidError = true;
-                response.ErrorMessage = string.Join(".", messages);
-                return response.ToHttpResponse();
+                else {
+                    return BadRequest(ModelState);
+                }
             }
             catch (Exception ex)
             {
-                response.DidError = true;
-                response.ErrorMessage = ex.ToString();
+                //implement middleware exception handling
+                //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-2.1&tabs=aspnetcore2x
             }
-            return response.ToHttpResponse();
+            return NotFound();
         }
 
         protected override void Dispose(Boolean disposing)

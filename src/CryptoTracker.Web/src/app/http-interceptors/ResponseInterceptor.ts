@@ -7,15 +7,18 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
 
-  intercept(req: HttpRequest<any>, next: HttpHandler):
-    Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       
-      return next.handle(req).map((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          console.log(JSON.stringify(event.body.model));
-          return event.body.model;
-        }
-        return event; 
-      });
+    const body = req.body;
+    console.log(body);
+    if (!body || !body.name ) {
+      return next.handle(req);
+    }
+    // copy the body and trim whitespace from the name property
+    const newBody = { ...body, name: body.name.trim() };
+    // clone request and set its body
+    const newReq = req.clone({ body: newBody });
+    // send the cloned request to the next handler.
+    return next.handle(newReq);
   }
 }

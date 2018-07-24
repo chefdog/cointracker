@@ -30,7 +30,7 @@ import { httpInterceptorProviders } from './http-interceptors/index';
   imports: [
     BrowserModule, AngularFontAwesomeModule, AppRoutingModule, HttpClientModule
   ],
-  providers: [PortfolioService, StatisticsService, MessageService, httpInterceptorProviders],
+  providers: [PortfolioService, StatisticsService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
