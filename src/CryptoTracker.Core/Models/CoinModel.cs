@@ -6,7 +6,6 @@ namespace CryptoTracker.Core.Models
     {
         public string Tag { get; set; }
         public decimal ListPrice { get; set; }
-        public decimal BuyPrice { get; set; }
-        public decimal SellPrice { get; set; }
+        
     }
 }
