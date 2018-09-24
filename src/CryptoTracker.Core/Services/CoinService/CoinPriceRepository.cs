@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace CryptoTracker.Core.Services.CoinService
 {
-    internal class CoinRepository: IRepository
+    internal class CoinPriceRepository : IRepository
     {
         private CTDbContext _dbContext;
-        public CoinRepository(CTDbContext dbContext)
+        public CoinPriceRepository(CTDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -22,15 +22,16 @@ namespace CryptoTracker.Core.Services.CoinService
             try
             {
                 if (entity == null) return null;
-                var model = entity as CoinModel;
+                var model = entity as CoinPriceModel;
                 model.Created = DateTime.Now;
                 model.LastModified = DateTime.Now;
                 model.RowGuid = Guid.NewGuid();
-                await _dbContext.Set<CoinModel>().AddAsync(model);
+                await _dbContext.Set<CoinPriceModel>().AddAsync(model);
                 await _dbContext.SaveChangesAsync();
                 return model;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ExceptionHandler.HandleRepositoryException(ex);
             }
             return null;
@@ -40,9 +41,10 @@ namespace CryptoTracker.Core.Services.CoinService
         {
             try
             {
-                if (data.Any()) { 
-                    var range = data.Cast<CoinModel>();
-                    _dbContext.Set<CoinModel>().AddRange(range.AsEnumerable());
+                if (data.Any())
+                {
+                    var range = data.Cast<CoinPriceModel>();
+                    _dbContext.Set<CoinPriceModel>().AddRange(range.AsEnumerable());
                     await _dbContext.SaveChangesAsync();
                     return data;
                 }
@@ -55,66 +57,29 @@ namespace CryptoTracker.Core.Services.CoinService
             return null;
         }
 
-        public async Task<IModel> DeleteAsync(IModel changes)
+        public Task<IModel> DeleteAsync(IModel changes)
         {
-            try
-            {
-                var model = changes as CoinModel;
-                _dbContext.Remove<CoinModel>(model);
-                await _dbContext.SaveChangesAsync();
-                return model;
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.HandleRepositoryException(ex);
-            }
-            return null;
+            throw new NotImplementedException();
         }
 
-        public async Task<IModel> GetAsync(IModel entity)
+        public Task<IModel> GetAsync(IModel entity)
         {
-            try
-            {
-                var model = entity as CoinModel;
-                var result = await _dbContext.Set<CoinModel>().FindAsync(model.Id);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.HandleRepositoryException(ex);
-            }
-            return null;
+            throw new NotImplementedException();
         }
 
-        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, object name)
+        public Task<IModel> GetByIdAsync(long id)
         {
-            try
-            {
-                var result = _dbContext.Set<CoinModel>().Take(pageSize);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.HandleRepositoryException(ex);
-            }
-            return null;
+            throw new NotImplementedException();
         }
 
-        public async Task<IModel> UpdateAsync(IModel entity)
+        public IQueryable<IModel> GetMany(int pageSize, int pageNumber, object queryParam)
         {
-            try
-            {
-                var model = entity as CoinModel;
-                model.LastModified = DateTime.Now;
-                _dbContext.Set<CoinModel>().Update(model);
-                await _dbContext.SaveChangesAsync();
-                return model;
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.HandleRepositoryException(ex);
-            }
-            return null;
+            throw new NotImplementedException();
+        }
+
+        public Task<IModel> UpdateAsync(IModel changes)
+        {
+            throw new NotImplementedException();
         }
 
         #region IDisposable Support
@@ -137,7 +102,7 @@ namespace CryptoTracker.Core.Services.CoinService
         }
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~CoinRepository() {
+        // ~CoinPriceRepository() {
         //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
         //   Dispose(false);
         // }
@@ -150,12 +115,6 @@ namespace CryptoTracker.Core.Services.CoinService
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
-
-        public Task<IModel> GetByIdAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
-
     }
 }

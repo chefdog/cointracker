@@ -1,6 +1,7 @@
 ﻿using CryptoTracker.Common;
 using CryptoTracker.Common.Interfaces;
 using CryptoTracker.Core.DataTransferModels;
+using CryptoTracker.Core.Initializr;
 using CryptoTracker.Core.ModelMappers;
 using CryptoTracker.Core.Services.CoinService;
 using CryptoTracker.Core.Services.HistoryService;
@@ -42,6 +43,9 @@ namespace CryptoTracker.WebApi
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddSingleton<IConfiguration>(Configuration);
 
+            //Database Init
+            services.AddTransient<CoinTrackerInitialzr>();
+
             //MS SQL
             services.AddEntityFrameworkSqlServer().AddDbContext<CTDbContext>();
 
@@ -69,10 +73,11 @@ namespace CryptoTracker.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, CoinTrackerInitialzr coinTrackerInitialzr)
         {
             if (env.IsDevelopment())
             {
+                coinTrackerInitialzr.Seed().Wait();
                 app.UseDeveloperExceptionPage();
             }
             else {

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CryptoTracker.Core.Models
 {
     public class BaseModel
     {
-        public Int64 Id { get; set; }
+        [Required]
+        public long Id { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastModified { get; set; }
         public string LastModifiedBy { get; set; }

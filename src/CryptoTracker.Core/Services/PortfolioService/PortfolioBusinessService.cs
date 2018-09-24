@@ -15,7 +15,7 @@ namespace CryptoTracker.Core.Services.PortfolioService
         private IRepository _repos;
         private IRepository _itemRepos;
         private IBusinessService<CoinDataTransferModel> _coinBusinessService;
-        private int pageSize = 100;
+        private readonly int pageSize = 100;
 
         public PortfolioBusinessService(CTDbContext dbContext, IBusinessService<CoinDataTransferModel> coinBusinessService) {
 
