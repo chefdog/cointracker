@@ -4,7 +4,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 
-namespace CryptoTracker.Core.Helpers.CsvFileHelpers
+namespace CryptoTracker.Core.Services.FileService.CsvHandlers
 {
     /// <summary>
     /// Class to read csv content from various sources

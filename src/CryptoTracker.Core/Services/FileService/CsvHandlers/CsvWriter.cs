@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace CryptoTracker.Core.Helpers.CsvFileHelpers
+namespace CryptoTracker.Core.Services.FileService.CsvHandlers
 {
     /// <summary>
     /// Class to write data to a csv file

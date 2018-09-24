@@ -13,7 +13,6 @@ namespace CryptoTracker.Core.Services.Helpers
                 var query = (from c in data select new ExchangeModel {
                     Name = c.Title,
                     Tag = c.Tag,
-                    UsdPrice = c.ListPrice,
                     Created = c.Created,
                     LastModified = c.LastModified
                 });
@@ -31,9 +30,9 @@ namespace CryptoTracker.Core.Services.Helpers
                              {
                                  Title = c.Name,
                                  Tag = c.Tag,
-                                 ListPrice = c.UsdPrice,
                                  Created = c.Created,
-                                 LastModified = c.LastModified
+                                 LastModified = c.LastModified,
+                                 PriceModel = new CoinPriceModel { ListPrice = c.UsdPrice }
                              });
                 return query.ToList();
             }

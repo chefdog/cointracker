@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace CryptoTracker.Core.Helpers.CsvFileHelpers
+namespace CryptoTracker.Core.Services.FileService.CsvHandlers
 {
     /// <summary>
     /// Class to hold csv data

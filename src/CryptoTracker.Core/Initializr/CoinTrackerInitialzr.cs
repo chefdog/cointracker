@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CryptoTracker.Common;
-using CryptoTracker.Core.Helpers;
-using CryptoTracker.Core.Helpers.CsvFileHelpers;
 using CryptoTracker.Core.Models;
 
 
@@ -27,6 +26,7 @@ namespace CryptoTracker.Core.Initializr
         {
             RemoveAllData();
             LoadFile();
+            LoadPortfolioItems();
 
             List<UserAccountModel> accounts = new List<UserAccountModel>();
             var usr = new UserAccountModel { Created = DateTime.Now, Email = "marco@chefdog.com", FirstName = "Marco", LastModified = DateTime.Now, LastModifiedBy = "System", LastName = "van Zuijlen", Title = "", Password = "1BitCo!n31" };
@@ -42,17 +42,13 @@ namespace CryptoTracker.Core.Initializr
 
         private void LoadFile() {
             
-            using (CsvReader reader = new CsvReader(_fileLocation, Encoding.Default))
-            {
-                while (reader.ReadNextRecord())
-                    records.Add(reader.Fields);
-            }
+            
         }
 
         private void LoadPortfolioItems() {
             var data = records.Skip(1);
-            var query = from item in data
-                        select new PortfolioItemModel {  };
+
+            
         }
 
         private void RemoveAllData() {
@@ -64,6 +60,20 @@ namespace CryptoTracker.Core.Initializr
             _context.Set<ArticleModel>().RemoveRange();
             _context.Set<MiningRigModel>().RemoveRange();
             _context.Set<PortfolioModel>().RemoveRange();
+        }
+
+        private Decimal ConvertToDecimal(string item) {
+            decimal decval;
+            bool convt = decimal.TryParse(item, NumberStyles.Currency,
+            CultureInfo.CurrentCulture.NumberFormat, out decval);
+            if (convt)
+            {
+                return decval;
+            }
+            else {
+                var numberWithoutMoneyFormatting = Regex.Replace(item, @"[^\d,-]", "");
+                return decimal.Parse(numberWithoutMoneyFormatting);
+            }
         }
     }
 }
